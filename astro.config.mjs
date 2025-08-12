@@ -8,6 +8,7 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
     site: 'https://dolmen-tools.github.io/angular-tutorials',
+    base: '/angular-tutorials/',
   integrations: [starlight({
     title: "Docs with Tailwind",
     social: [
