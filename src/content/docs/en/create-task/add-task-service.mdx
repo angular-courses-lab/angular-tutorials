@@ -1,0 +1,113 @@
+---
+title: Add Task Service
+description: Learn how to implement task management in a service
+course: angular-20
+slug: "create-task-add-task-service"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Implement task management</strong>
+      <p>Create methods to handle task operations in the service.</p>
+    </li>
+    <li>
+      <strong>Manage task state</strong>
+      <p>Learn how to maintain and update task data in the service.</p>
+    </li>
+    <li>
+      <strong>Handle task operations</strong>
+      <p>Implement methods for adding, updating, and removing tasks.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+## Design a method to add a task
+
+The **TaskService** will be responsible for managing the task list as planned.
+Create a function to add a task to the list.
+
+<Steps>
+
+1. Update the file `src/app/task-service.ts`.
+
+   ```typescript ins={"Add the addTask function": 23-33}
+   // task-service.ts
+   import { Injectable } from "@angular/core";
+   import { Task } from "./models/task.model";
+
+   @Injectable({
+     providedIn: "root",
+   })
+   export class TaskService {
+     tasks: WritableSignal<Task[]> = signal([
+       {
+         id: uuid(),
+         title: "Task 1",
+         description: "Description of task 1",
+         createdAt: new Date(),
+       },
+       {
+         id: uuid(),
+         title: "Task 2",
+         description: "Description of task 2",
+         createdAt: new Date(),
+       },
+     ]);
+
+     addTask(task: Partial<Task>): void {
+       this.tasks.update(tasks => [
+         ...tasks,
+        {
+           ...task,
+           id: uuid(),
+           createdAt: new Date(),
+         }
+      ]);
+     }
+   }
+   ```
+  2. Let's adapt model in order to be able to handle eventual empty values coming from the form `src/app/task.model.ts`.
+     ```typescript ins="?" ins=" | null"
+     // task.model.ts
+     export interface Task {
+       id: string;
+       title?: string | null;
+       description?: string | null;
+       createdAt: Date;
+     }
+     ```
+
+</Steps>
+
+The function `addTasks' will be called from your **TaskFormComponent** and add a new task to the existing list of tasks.
+
+<NotificationCard state="info" title="Code Details">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>`Partial<Task>`:</strong>
+      <p>It allows the **task** parameter to include only some properties of the **Task** interface, making them optional.</p>
+    </li>
+    <li>
+      <strong>`...` (spread operator):</strong>
+      <ul>
+        <li>`...tasks`: Copies all existing tasks into a new array.</li>
+        <li>`...task`: Copies all properties of the provided task object into the new task.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>The function `uuid()`:</strong>
+      <p>
+        Generates a unique id and sets the **createdAt** property to the current date before adding the new task to the list.
+      </p>
+    </li>
+  </ul>
+</NotificationCard>
+
+<NotificationCard state="success" title="What you've learned">
+  You have created a function in the <strong>TaskService</strong> service to
+  isolate the task addition logic.
+</NotificationCard>

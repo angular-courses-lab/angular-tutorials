@@ -1,0 +1,103 @@
+---
+title: Use Pipes
+description: Learn how to use pipes in Angular to transform data in templates.
+course: angular-20
+slug: "task-listing-pipes"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Use pipes</strong>
+      <p>Learn how to transform data in templates with Angular pipes.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+## Angular Pipes
+
+We have an issue as the task creation date is not displayed in a friendly human format:
+
+```bash
+Mon Jun 09 2025 22:33:33 GMT+0200 (Central European Summer Time)
+```
+
+Angular provides a set of built-in **pipes** to transform data in HTML Templates (views).
+Pipes are simple functions that accept an input value and return a transformed value.
+They are used in the view (HTML Template) to format data before displaying it in a more human-readable format.
+
+Angular pipes are used with the pipe operator `|` followed by the pipe name.
+You can chain multiple pipes to transform data in the view (HTML Template) in a single expression.
+
+Here are the most commonly used Angular pipes:
+
+- `uppercase`: transforms a string to uppercase
+- `lowercase`: transforms a string to lowercase
+- `currency`: formats a number as currency
+- `date`: formats a date
+
+You will use the latter to format the task's **createdAt** date into a more readable format.
+
+##### Instructions
+
+<Steps>
+
+1. Import the `DatePipe` in the `task-list.ts` file.
+
+   ```ts ins={"Import the DatePipe": 3-4} ins="[DatePipe]" ins={"Add the DatePipe to the component imports":8-9}
+   // task-list.ts
+
+
+   import { DatePipe } from '@angular/common';
+
+   @Component({
+     selector: 'app-task-list',
+
+     imports: [DatePipe],
+     templateUrl: './task-list.html',
+     styleUrls: ['./task-list.css']
+   })
+   export class TaskList {
+   ```
+
+2. Update the `src/app/task-list.html` file.
+
+   ```html ins={"use the date pipe": 14-15} ins="| date"
+   // task-list.html
+   <table class="table">
+     <thead>
+       <tr>
+         <th>Name</th>
+         <th>Date</th>
+         <th>Actions</th>
+       </tr>
+     </thead>
+     <tbody>
+       @for (task of tasks(); track task.id) {
+       <tr>
+         <td>{{ task.title }}</td>
+
+         <td>{{ task.createdAt | date }}</td>
+         <td></td>
+       </tr>
+       }
+     </tbody>
+   </table>
+   ```
+
+3. Check the changes in your browser
+
+</Steps>
+
+The task creation date is now displayed in a more user-friendly format.
+
+- <a
+    class="!text-blue-200"
+    href="https://angular.dev/guide/pipes"
+    target="_blank"
+  >
+    Official Angular Documentation: pipes
+  </a>

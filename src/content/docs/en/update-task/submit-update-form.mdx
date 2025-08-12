@@ -1,0 +1,198 @@
+---
+title: Submit Update Form
+description: Learn how to handle form submission for task updates
+course: angular-20
+slug: "update-task-submit-update-form"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Handle form submission</strong>
+      <p>Learn how to process form data when updating tasks.</p>
+    </li>
+    <li>
+      <strong>Update task data</strong>
+      <p>Implement the logic to update task information in the service.</p>
+    </li>
+    <li>
+      <strong>Navigate after update</strong>
+      <p>Learn how to redirect users after successful task updates.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+## Update the Task with TaskService
+
+The **TaskService** already includes a function to add a new task to the list.
+Let's add a new function to update an existing task in the list.
+
+<Steps>
+
+1. Update the file `src/app/task-service.ts`.
+
+   ```typescript ins={"Add the task update function": 32-37}
+   import { Injectable, signal, WritableSignal } from "@angular/core";
+   import { Task } from "./task.model";
+
+   @Injectable({
+     providedIn: "root",
+   })
+   export class TaskService {
+     tasks: WritableSignal<Task[]> = signal([
+       {
+         title: "Task 1",
+         description: "Description of task 1",
+         createdAt: new Date(),
+       },
+       {
+         title: "Task 2",
+         description: "Description of task 2",
+         createdAt: new Date(),
+       },
+     ]);
+
+     addTask(task: Task) {
+       this.tasks.update((tasks) => {
+        return [...tasks, {
+         ...task,
+         createdAt: new Date(),
+       });
+     }
+
+     getTask(id: string) {
+       return this.tasks().find((task) => task.id === id);
+     }
+
+     updateTask(task: Task) {
+       this.tasks.update((tasks) => {
+        return tasks.map((existingTask) => existingTask.id === task.id ? task : existingTask);
+       });
+     }
+   }
+   ```
+
+</Steps>
+
+## Update the TaskFormComponent
+
+The **TaskFormComponent** is currently used to add a new task to the list.
+
+Handle the update action through the form **without creating a new task**.
+To do this, keep the same **submit** function but update it to use the **updateTask** function from the **TaskService**.
+
+When?
+
+- If the task has an **id**, call the **updateTask** function.
+- If the task doesn't have an **id**, call the **addTask** function.
+
+```typescript ins={"Update the submit function with a condition": 8-17}
+submit() {
+      if (this.form.invalid) {
+        console.log('Your form is invalid. Please check the fields.');
+        console.log('Your Form: ', this.form.value);
+        console.log('Title Errors: ', this.form.controls.title.errors);
+        console.log('Description Errors: ', this.form.controls.description.errors);
+      }
+
+        if (this.id ) {
+          const existingTask = this.taskService.getTask(this.id );
+          this.taskService.updateTask({
+            ...existingTask,
+            ...this.form.value,
+          });
+        } else {
+          this.taskService.addTask(this.form.value);
+        }
+
+    this.router.navigate(['/']);
+  }
+```
+
+  The updateTask method uses the spread operator `...` to merge two objects: first it spreads the existing task properties, then it spreads the form values on top, so any matching properties get overwritten with the new form data.
+
+In both cases, return to the task list.
+
+<Steps>
+
+1. Update the file `src/app/task-form/task-form.ts`.
+
+   ```typescript
+    // task-form.ts
+   import { Component, OnInit, inject } from "@angular/core";
+   import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+   import {TaskService} from '../task-service';
+   import {ActivatedRoute, Router} from '@angular/router';
+
+   @Component({
+     selector: "app-task-form",
+     imports: [
+      ReactiveFormsModule
+     ],
+     templateUrl: "./task-form.html",
+     styleUrl: "./task-form.css",
+   })
+   export class TaskFormComponent implements OnInit {
+     private taskService = inject(TaskService);
+     private router = inject(Router);
+     private route = inject(ActivatedRoute);
+     private id: string | null = null;
+
+     form = new FormGroup({
+       title: new FormControl('', [Validators.required]),
+       description: new FormControl('', [Validators.required])
+     });
+
+     ngOnInit() {
+       this.id = this.route.snapshot.paramMap.get("id");
+
+       if (this.id) {
+         this.form.patchValue(this.taskService.getTask(this.id));
+       }
+     }
+
+     submit() {
+        if (this.form.invalid) {
+          console.log('Your form is invalid. Please check the fields.');
+          console.log('Your Form: ', this.form.value);
+          console.log('Title Errors: ', this.form.controls.title.errors);
+          console.log('Description Errors: ', this.form.controls.description.errors);
+        }
+
+       if (this.id) {
+         const existingTask = this.taskService.getTask(this.id);
+         this.taskService.updateTask({
+           ...existingTask,
+           ...this.form.value,
+         });
+       } else {
+         this.taskService.addTask(this.form.value);
+       }
+       this.router.navigate(["/"]);
+     }
+   }
+   ```
+
+</Steps>
+
+## Test it
+
+<Steps>
+
+1. Click the `Update` button next to a task in the list.
+
+2. Update the form with the new task details.
+
+3. Click the `Update Task` button.
+
+4. The task should be updated in the list.
+
+</Steps>
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you learned how to update the **TaskFormComponent** to handle
+  both updating and creating tasks.
+</NotificationCard>

@@ -1,0 +1,100 @@
+---
+title: Prerequisites
+description: What you need to know before starting this course
+course: angular-20
+slug: "prerequisites"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../components/ui/NotificationCard";
+
+## Knowledge Prerequisites
+
+Before starting this course, it would be helpful to have a basic understanding of the following concepts:
+- **HTML5**: Familiarity with HTML tags, attributes, and structure.
+- **CSS3**: Understanding of CSS selectors, properties, and how to style HTML elements.
+- **JavaScript**: Basic knowledge of JavaScript syntax, variables, and functions.
+
+## Node Installation
+
+The Angular team maintains Angular's compatibility with evolving Node.js versions.
+Make sure your Node version is compatible with the Angular version you're using.
+
+##### Instructions
+
+<Steps>
+1. Open your terminal and run the following command to get the current version of Node.js installed on your system:
+
+    ```bash
+    node -v
+    ```
+
+2. <a href="https://angular.dev/reference/versions#actively-supported-versions" target="_blank">Check the first line of the matrix compatibility table</a> that your Node version is compatible with the Angular version.
+</Steps>
+
+## IDEs
+
+If you don't already have an IDE, we recommend using Visual Studio Code or Webstorm for this course.
+
+### Visual Studio Code
+
+##### Instructions
+
+<Steps>
+1. Download the Visual Studio Code installer from the{" "} <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code website</a>
+
+2. Run the installer (the .exe file you downloaded in the previous step).
+
+3. Follow the installer instructions (accept the license agreement, click Next several times, and accept the default installation settings).
+
+4. Restart your computer. You won't be able to run Visual Studio Code until you restart your computer.
+
+5. Test Visual Studio Code. To see if Visual Studio Code is installed, open Windows Command Prompt, PowerShell, or a similar command-line tool, and type `code --version`. This should print a version number, so you'll see something like `1.35.1`.
+
+</Steps>
+
+### Angular Language Service Plugin
+
+The Angular Language Service plugin provides a rich editing experience for Angular HTML templates, both inline and external HTML templates, including:
+
+- Auto-completion
+- Error checking
+- Quick info and navigation to definition
+
+##### Installation
+
+<Steps>
+1. Open Visual Studio Code.
+
+2. Click on the Extensions icon in the icon bar on the side or type `Ctrl+Shift+X`.
+
+3. Search for `Angular Language Service`.
+
+4. Click the `Install` button.
+
+5. Restart Visual Studio Code.
+
+</Steps>
+
+### Webstorm
+
+Webstorm is an IDE offered by JetBrains that has been free for personal use since 2024.
+It provides a comprehensive development experience.
+
+##### Instructions
+
+<Steps>
+1. Download the Webstorm installer from the{" "} <a href="https://www.jetbrains.com/webstorm/download/" target="_blank"> JetBrains website</a>
+
+2. Run the installer (the .exe file you downloaded in the previous step).
+
+3. Follow the installer instructions (accept the license agreement, click Next several times, and accept the default installation settings).
+
+4. Test Webstorm by opening it from the Start menu or by searching for "Webstorm" in the Windows search bar.
+
+</Steps>
+
+<NotificationCard state="warning" title="Angular Language Service Plugin">
+  You do not need the official Angular Language Service plugin for Webstorm as
+  it provides its own custom engine for Angular.
+</NotificationCard>

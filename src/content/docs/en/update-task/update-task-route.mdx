@@ -1,0 +1,141 @@
+---
+title: Update Task Route
+description: Learn how to set up routing for task updates
+course: angular-20
+slug: "update-task-update-task-route"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Configure update route</strong>
+      <p>Set up routing for the task update functionality.</p>
+    </li>
+    <li>
+      <strong>Handle route parameters</strong>
+      <p>Learn how to pass and retrieve task ID in routes.</p>
+    </li>
+    <li>
+      <strong>Implement route guards</strong>
+      <p>Add protection to ensure valid task updates.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+## Route Configuration
+
+So far, you have defined 2 route paths:
+
+- `''` for the **TaskList** component to display the list of tasks
+- `'add-task'` for the **AddTask** component to display a form
+
+The update path is quite different because you don't just want to go to a new page. To update a task, you need to know which task to update.
+
+A common way to provide information to a routed component is to use a dynamic routing path.
+
+## Create the Route
+
+The new path will be `update/:id`.
+The `update` part is static but the `:id` part is dynamic.
+
+<NotificationCard state="info" title="Note">
+  The `:id` part is a route parameter. You can chain multiple route parameters
+  in a path, for example `'update/:id/:name'`. Each is prefixed with a colon `:`
+  followed by an arbitrarily chosen name.
+</NotificationCard>
+
+You won't create a dedicated component for the update functionality.
+The purpose of **TaskForm** component is to create tasks with user input and update them.
+Let's update the component to handle both creation and updating.
+
+<Steps>
+
+1. Update the file `src/app/app.routes.ts`.
+
+   ```typescript ins={"1. Add the route for the update task feature": 7-8}
+   // app.routes.ts
+   // ...
+
+   export const routes: Routes = [
+     { path: "", component: TaskList },
+     { path: "add-task", component: TaskForm },
+
+     { path: "update/:id", component: TaskForm },
+   ];
+   ```
+
+</Steps>
+
+## Update the Navigation
+
+Add a link in the **TaskList** component to access the **TaskForm** component with the **id** of the task to update.
+By accessing this path, you will extract the **id** value from the URL in the next chapter.
+
+<Steps>
+
+1. Update the file `src/app/task-list/task-list.html`.
+
+   ```html ins={"1. Add an update link": 5-8}
+   @for (task of tasks(); track task.id) {
+   <tr>
+     <td>{{ task.title }}</td>
+     <td>{{ task.createdAt | date }}</td>
+
+     <td>
+       <a class="btn btn-primary" [routerLink]="['/update', task.id]">Update</a>
+     </td>
+   </tr>
+   }
+   ```
+
+   2.import the **RouterLink** directive in the file `src/app/task-list/task-list.ts`.
+
+   ```typescript ins={"import RouterLink": 5-6} ins="import {RouterLink} from '@angular/router';" ins={"import RouterLink in the import array": 12-13} ins="{RouterLink}"
+    // task-list.ts
+    import {Component, inject} from '@angular/core';
+    import {DatePipe} from "@angular/common";
+    import {TaskService} from '../task-service';
+
+    import {RouterLink} from '@angular/router';
+
+    @Component({
+      selector: 'app-task-list',
+      imports: [
+        DatePipe,
+
+        RouterLink
+      ],
+    ```
+
+
+</Steps>
+
+The **routerLink** directive is used to create a link to the update route. It binds the link to the **TaskFormComponent** and passes the **id** of the task to update.
+The **routerLink** value expects a string or an array of URL segments.
+In our situation, the **routerLink** value is an array of two elements:
+
+- `/update` is a string, the static part of the path.
+- `task.id` is the dynamic part of the path, the **id** of the task to update.
+
+## Test it
+
+<Steps>
+
+1. Click the 'Update' link on the first task in the list.
+
+2. Check the URL: `http://localhost:4200/update/d8ecfcda-ef70-420f-8236-3138ff64ac9f` for example. The **id** of the task is passed at the end of the URL.
+
+3. The **TaskFormComponent** form is displayed correctly.
+
+</Steps>
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you learned how to add a route to update a task in an Angular
+  application. You learned how to define a dynamic routing path to pass the
+  **id** of the task to update. You also learned how to use the **routerLink**
+  directive to access the **TaskFormComponent** and pass the **id** of the task
+  to update.
+</NotificationCard>

@@ -1,0 +1,127 @@
+---
+title: Dependency Injection
+description: Learn about dependency injection in Angular
+course: angular-20
+slug: "create-task-dependency-injection"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Understand dependency injection</strong>
+      <p>Learn the fundamentals of dependency injection in Angular.</p>
+    </li>
+    <li>
+      <strong>Use services</strong>
+      <p>Master how to create and inject services in your components.</p>
+    </li>
+    <li>
+      <strong>Manage dependencies</strong>
+      <p>Learn how to properly manage and organize dependencies.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+## Remove the tasks list from TaskListComponent
+
+The **TaskListComponent** class is still using its own tasks list.
+You need it to use the service's list instead. The first step is to remove the tasks list from the **TaskListComponent** class.
+
+<NotificationCard state="warning" title="Warning">
+  As you remove this list, the application will stop working (it won't compile)
+  temporarily because the HTML Template is still expecting a **tasks** variable.
+</NotificationCard>
+
+<Steps>
+
+1. Remove the **tasks** variable from the `src/app/task-list.ts` file, and all imports related to it.
+
+   ```typescript del="signal" del="WritableSignal" del="import { Task } from "./models/task.model";" del="import { v4 as uuid } from "uuid";" del={"Remove the tasks list": 12-27}
+   // task-list.ts
+
+    import { Component, WritableSignal, signal } from "@angular/core";
+    import { Task } from "./models/task.model";
+    import { v4 as uuid } from "uuid";
+
+   @Component({
+     selector: "app-task-list",
+     templateUrl: "./task-list.html",
+     styleUrls: ["./task-list.css"],
+   })
+
+   export class TaskList {
+
+     tasks: WritableSignal<Task[]> = signal([
+       {
+         id: uuid(),
+         title: "Task 1",
+         description: "Description of task 1",
+         createdAt: new Date(),
+       },
+       {
+         id: uuid(),
+         title: "Task 2",
+         description: "Description of task 2",
+         createdAt: new Date(),
+       },
+     ]);
+   }
+   ```
+
+</Steps>
+
+## Inject TaskService
+
+Your **TaskListComponent** class needs to use **TaskService** to get the tasks list.
+Angular uses the dependency injection system to provide **TaskService** to the **TaskListComponent** class.
+
+The **TaskService** class is prefixed with the **@Injectable()** decorator.
+A decorator is a special syntax in TypeScript used to attach metadata to a class, method, or property (You already saw it in the component file: **@Component()** ).
+The **@Injectable()** decorator tells Angular that the **TaskService** class can be injected into other classes.
+
+This is achieved by referencing the **TaskService** class in the **TaskListComponent** class constructor by using the `inject` function.
+
+```ts
+private taskService = inject(TaskService);
+```
+
+Your application compiles again and you can now use the **taskService** variable `tasks` to access the tasks list and initialize a local variable with the tasks list.
+
+```ts
+tasks = this.taskService.tasks;
+```
+
+1. Update the `src/app/task-list.ts` file.
+
+```typescript ins={"Import TaskService": 3-4} ins={"Create a tasks variable and initialize it with TaskService's list": 14-15} ins={"Inject TaskService in the class constructor": 12-13}
+// task-list.ts
+import { Component } from "@angular/core";
+
+import { TaskService } from "../task.service";
+
+@Component({
+  selector: "app-task-list",
+  templateUrl: "./task-list.component.html",
+  styleUrls: ["./task-list.component.css"],
+})
+export class TaskList {
+
+  private taskService = inject(TaskService);
+
+  tasks = this.taskService.tasks;
+}
+```
+
+<NotificationCard state="info" title="Note">
+  Initializing a local variable with the tasks list allows the component to manage and display the tasks independently, ensuring better control over the data within the component's scope.
+</NotificationCard>
+
+
+<NotificationCard state="success" title="What you've learned">
+  You have learned how to inject a service into a component using Angular's
+  dependency injection system. It makes your service accessible in the component
+  and allows you to use the service's methods and properties.
+</NotificationCard>

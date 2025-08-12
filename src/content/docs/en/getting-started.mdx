@@ -1,0 +1,146 @@
+---
+title: Getting Started!
+description: How to get started with Angular
+course: angular-20
+slug: "getting-started"
+---
+
+import { Image } from "astro:assets";
+import boilerplateImg from "../../../../public/getting-started_boilerplate.png";
+import headerImg from "../../../../public/getting-started_header.png";
+import { Steps } from "@astrojs/starlight/components";
+import NotificationCard from "../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Generate an Angular application</strong>
+      <p>
+        Learn how to use the Angular CLI to generate an Angular application.
+      </p>
+    </li>
+    <li>
+      <strong>Run the application</strong>
+      <p>Launch the application locally and view the default base page.</p>
+    </li>
+    <li>
+      <strong>Understand hot reloading</strong>
+      <p>Understand how hot reloading works in Angular applications.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+## Create the project
+
+Angular provides a Command Line Interface (CLI) to generate a new Angular application, manage the project, and run the application locally.
+
+##### Instructions
+
+<Steps>
+1. Open a terminal and run the following command to install the Angular CLI:
+
+    <NotificationCard state="warning" title="Admin mode">
+      You might need to run the command with administrator privileges, depending on your operating system.
+      Either run the command with `sudo` prefix on Linux or macOS, or open the terminal as an administrator on Windows.
+    </NotificationCard>
+
+    ```bash
+    npm install -g @angular/cli@latest
+    ```
+
+    <NotificationCard state="info" title="Note">
+      The `-g` flag installs the Angular CLI globally, allowing you to use the `ng` command from any directory.
+    </NotificationCard>
+
+2. Open a terminal and run the following command to create an Angular application:
+
+   ```bash
+   ng new angular-introduction-course --style=css --ssr=false --skip-tests=true --zoneless=true
+   ```
+
+   <NotificationCard state="info" title="Note">
+     The command includes some options to **facilitate the learning process**.
+     Learn more about the options in{" "}
+     <a href="/legacy-course/going-further#angular-cli-options" target="_blank">
+       Angular CLI Options
+     </a>
+     .
+   </NotificationCard>
+
+3. Open your IDE.
+
+4. For **Visual Studio Code**: Click on the `File` menu and select `Open Folder`. <br/>For **Webstorm**: Click on the `File` menu and select `Open...`.
+
+5. Navigate to the `angular-introduction-course` folder and click the `Select Folder` button for **Visual Studio Code** and the `Open` button for **Webstorm**.
+
+6. Open your IDE's terminal.
+
+7. Type the following command to start the application:
+
+   ```bash
+   ng serve
+   ```
+
+   <NotificationCard state="info" title="Angular Analytics">
+     By running a project for the first time, Angular will prompt you to allow
+     to share pseudonymous usage data with the Angular team. You can choose to
+     allow or disallow this.
+   </NotificationCard>
+
+8. Open your browser and navigate to `http://localhost:4200`.
+
+9. You should see the following default base page:
+
+   ```
+   Welcome to angular-introduction-course!
+   ```
+
+</Steps>
+
+## Hot Reloading
+
+Hot reloading is a feature that allows you to see the changes you make to your code without having to manually refresh the page.
+
+<Steps>
+
+1. Locate and open the `app.html` file in the `src/app` directory.
+
+      ```bash ins="app.html"
+      src
+      └─ app
+          └─ app.html
+      ```
+
+2. Locate the placeholder (which is wrapped in HTML comment tags) in the `app.html` file and replace the template content with following:
+
+      ```html ins="app.html"
+      // app.html
+        <h1>Welcome to {{title}}!</h1>
+      ```
+
+3. In the file `app.ts`, locate the `imports` array and remove the `RouterOutlet` import:
+
+      ```diff lang="ts"
+      // app.ts
+      - import { RouterOutlet } from '@angular/router';
+      ```
+
+      ```ts del="RouterOutlet"
+      // app.ts
+      @Component({
+      // ...
+      imports: [RouterOutlet],
+      })
+      export class App {
+      // ...
+      }
+      ```
+
+4. Return to your browser to see the following page:
+
+      ```
+      Task Manager
+      ```
+
+</Steps>
+
