@@ -1,0 +1,35 @@
+---
+title: Delete all tasks
+description: Delete all tasks
+course: angular-20
+slug: "reusable-components-delete-all-tasks"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+# Delete all tasks
+
+##### Instructions
+
+<Steps>
+
+1. Update the `TaskService` class with a new function setting the tasks to an empty array:
+
+    ```typescript ins={"Add the deleteAllTasks function to the service": 3-6}
+    // task.service.ts
+
+
+    deleteAllTasks() {
+        this.tasks.set([]);
+    }
+    ```
+
+2. Update the `TaskList` class with the new function:
+
+    ```typescript ins=" this.taskService.deleteAllTasks();"
+    deleteAllTasks() {
+        this.taskService.deleteAllTasks();
+    }
+
+</Steps>

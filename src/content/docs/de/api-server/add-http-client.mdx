@@ -1,0 +1,82 @@
+---
+title: Add HTTP Client
+description: Learn how to add HTTP Client to your Angular application.
+course: angular-20
+slug: "api-server-add-http-client"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Add HTTP Client</strong>
+      <p>Learn how to add HTTP Client to your Angular application.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+
+## HttpClient Provider
+
+The HttpClient is a built-in Angular service that allows you to send HTTP requests to a server. In Angular 20, we use the `provideHttpClient` function to configure the HTTP client in the application bootstrap.
+
+<Steps>
+
+1. Import **provideHttpClient** in the `src/app/app.config.ts` file.
+
+   ```typescript ins={"Import provideHttpClient": 3-4} ins={"Import provideHttpClient function": 13-14}
+    import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+    import { provideRouter } from '@angular/router';
+
+    import {provideHttpClient} from '@angular/common/http';
+
+   import { routes } from './app.routes';
+
+   export const appConfig: ApplicationConfig = {
+      providers: [
+      provideBrowserGlobalErrorListeners(),
+      provideZonelessChangeDetection(),
+      provideRouter(routes),
+
+      provideHttpClient()
+      ]
+    };
+   ```
+
+2. Inject the HttpClient service in the `src/app/task.service.ts` file.
+
+   ```typescript ins={"Import the HttpClient service": 2-3} ins="inject" ins={"Inject the HttpClient service": 9-11}
+   import { Injectable, inject } from "@angular/core";
+
+   import { HttpClient } from "@angular/common/http";
+
+   @Injectable({
+     providedIn: "root",
+   })
+   export class TaskService {
+
+     private http = inject(HttpClient);
+   }
+   ```
+
+</Steps>
+
+<NotificationCard state="info" title="Note">
+  Where to place the **constructor** line in an Angular class?
+  The recommended practices for ordering elements in an Angular class are:
+
+1. Variables
+2. Constructor
+3. Functions
+
+</NotificationCard>
+
+<NotificationCard state="success" title="What you've learned">
+  <strong>HttpClientModule</strong> is a built-in Angular module that allows you
+  to send HTTP requests to a server. It's one of the first modules added to a
+  real Angular application to communicate with a server. In the next chapters,
+  we'll use it to communicate with the mock API server to retrieve and update
+  tasks.
+</NotificationCard>

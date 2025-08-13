@@ -1,0 +1,93 @@
+---
+title: Add UI Library
+description: Learn how to integrate a UI library in your Angular application
+course: angular-20
+slug: "task-listing-add-ui-library"
+---
+
+import { Image } from "astro:assets";
+import bootstrapImg from "../../../../../public/bootstrap_added.png";
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Install dependencies</strong>
+      <p>Set up the UI library dependencies and files</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+<br />
+
+This lesson is not specific to Angular, but adding an UI library will enhance the application's user interface rather than relying on default browser styles.
+
+Do not forget to always stop the project server before installing new dependencies. You can do this by pressing `CTRL+C` in the terminal where the server is running. The server and package installation can run independently. However, after installing certain dependencies, you might need to restart the server to apply the changes.
+
+// TODO: add before/after illustration of the final application
+
+## What is a User Interface (UI) Library?
+
+A user interface (UI) library is a collection of style rules to create a consistent UI throughout the application and saves development time.
+For this course, you will add <a href="https://daisyui.com/" target="_blank">DaisyUI</a> and <a href="https://tailwindcss.com/" target="_blank">TailwindCSS</a> to your project.
+
+##### Instructions
+
+<Steps>
+
+1. Run the following command in your terminal to install DaisyUI and TailwindCSS:
+
+   ```bash
+   npm install tailwindcss @tailwindcss/postcss postcss daisyui@latest --force
+   ```
+
+2. Create a PostCSS plugins file named `.postcssrc.json` at the root of your project (same level than package.json) and populate it with:
+
+   ```json
+   // .postcssrc.json
+   {
+     "plugins": {
+       "@tailwindcss/postcss": {}
+     }
+   }
+   ```
+
+3. Add these styles into the `src/styles.css` file:
+
+   ```css
+   // styles.css
+   @import "tailwindcss";
+   @plugin "daisyui";
+   ```
+
+4. Stop the server if it's still running (keyboard shortcut `CTRL+C`) and restart it with the following command:
+
+   ```bash
+   ng serve
+   ```
+
+5. Open the `src/app/app.html` file and replace its content once again to add a DaisyUI header:
+
+   ```html
+   <div class="navbar bg-base-100 shadow-sm">
+     <a class="btn btn-ghost text-xl">Task Manager</a>
+   </div>
+   ```
+
+6. Check out the _small_ changes in your browser.
+
+   <Image
+     class="shadow-xl rounded-xl"
+     src={bootstrapImg}
+     alt="A bird sitting on a nest of eggs."
+   />
+
+</Steps>
+
+<NotificationCard state="success" title="What you've learned">
+  You learned how to add a UI library to your Angular application. In the
+  upcoming chapters, HTML snippets will include <strong>DaisyUI</strong> classes
+  to enhance the application's user interface. You won't need to explore the
+  DaisyUI documentation as all required classes will be included in snippets..
+</NotificationCard>

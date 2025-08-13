@@ -1,0 +1,96 @@
+---
+title: Add a Delete Button
+description: Learn how to add a delete button to remove tasks from the list.
+course: angular-20
+slug: "delete-task-add-delete-button"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Add a delete button</strong>
+      <p>Learn how to add a button to remove tasks from the list.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+## The delete button
+
+Let's modify the **TaskListComponent** to add a delete button next to each task in the list.
+When the user clicks this button, the task will be removed from the list.
+
+A click event is sufficient here because delete is a simple direct action that doesn't involve form submission, validation, or keyboard interaction - it's just a single button performing one specific task.
+
+<Steps>
+
+1. Update the file `src/app/task-list/task-list.html`.
+
+   ```html ins={"Add a delete button": 9-10}
+   // task-list.html
+    <tbody>
+          @for (task of tasks(); track task.id) {
+            <tr>
+              <td>{{ task.title }}</td>
+              <td>{{ task.createdAt | date}}</td>
+              <td>
+                <a class="btn btn-secondary" [routerLink]="['/update', task.id]">Update</a>
+
+              <button class="btn btn-danger" type="button" (click)="deleteTask(task.id)">Delete</button>
+            </td>
+            </tr>
+          }
+      </tbody>
+   ```
+
+</Steps>
+
+## The deleteTask function
+
+Let's create a **deleteTask** function in the **TaskListComponent** to remove a task from the list.
+This function will call the **deleteTask** function of **TaskService** created in the previous chapter to remove a task from the list.
+
+<Steps>
+
+1. Update the file `src/app/task-list/task-list.ts`.
+
+   ```typescript ins={"Add the deleteTask function and call deleteTask from TaskService": 19-22}
+    import {Component, inject} from '@angular/core';
+    import {DatePipe} from "@angular/common";
+    import {TaskService} from '../task-service';
+    import {RouterLink} from '@angular/router';
+
+   @Component({
+     selector: 'app-task-list',
+     imports: [
+     DatePipe,
+     RouterLink
+     ],
+     templateUrl: './task-list.html',
+     styleUrl: './task-list.css'
+   })
+   export class TaskListComponent {
+     private taskService = inject(TaskService);
+
+     tasks: Task[] = this.taskService.tasks;
+
+     deleteTask(id: string): void {
+       this.taskService.deleteTask(id);
+     }
+   }
+   ```
+
+</Steps>
+
+## Let's test it!
+
+<Steps>
+  1. Click the delete button next to a task in the list. 2. This task should be
+  removed from the list.
+</Steps>
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you added a function to delete a task.
+</NotificationCard>

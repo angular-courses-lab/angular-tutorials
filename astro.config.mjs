@@ -235,6 +235,9 @@ export default defineConfig({
         fr: {
           label: "Français",
         },
+        de: {
+          label: "Deutsch",
+        },
       },
     }),
     react(),

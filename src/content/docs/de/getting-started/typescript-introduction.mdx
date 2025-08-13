@@ -1,0 +1,117 @@
+---
+title: TypeScript Introduction
+description: Learn the basics of TypeScript for Angular development
+course: angular-20
+slug: "typescript-introduction"
+---
+
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Understand TypeScript basics</strong>
+      <p>
+        Learn the fundamental concepts of TypeScript and its relationship with
+        JavaScript.
+      </p>
+    </li>
+    <li>
+      <strong>Master TypeScript types</strong>
+      <p>
+        Learn how to use TypeScript's type system effectively in your Angular
+        applications.
+      </p>
+    </li>
+    <li>
+      <strong>Apply TypeScript in Angular</strong>
+      <p>Understand how TypeScript is used in Angular and its benefits.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+## What is TypeScript?
+
+[TypeScript](https://www.typescriptlang.org/) is a superset of JavaScript that compiles to plain JavaScript. TypeScript is purely object-oriented with classes, interfaces and is statically typed like C# or Java.
+
+## Why use TypeScript?
+
+Using TypeScript offers several advantages:
+
+- **Type Safety**: TypeScript provides static typing, which helps you catch errors at compile time rather than runtime. This can help you detect bugs earlier and improve your code quality.
+- **Tools**: TypeScript provides a rich set of tools for building and maintaining large-scale applications. This includes features such as code completion and easier refactoring.
+- **Readability**: TypeScript provides a way to add type annotations to your code, which can make it easier to understand and maintain.
+
+Take a **car** object, in Javascript, we accept the following format:
+
+```javascript
+const car = {
+  make: "Toyota",
+  model: "Corolla",
+  year: 2020,
+};
+```
+
+To log the car's model, you would do:
+
+```javascript
+console.log(car.model);
+```
+
+But not only do you have to remember the car object's structure, you also need to remember the type of each property.
+This makes code maintenance and understanding more complicated. If you happened to make a typo like `modle` instead of `model`, you won't get any warning from your IDE but your code will break at runtime in users's browser.
+
+In TypeScript, you can define a **Car** interface like this:
+
+```typescript
+export interface Car {
+  make: string;
+  model: string;
+  year: number;
+}
+```
+
+A type is a set of elements that allow us to categorize information.
+In this example, not only do we bind different characteristics of a car like its model or manufacturer, but we also define the actual type of each property.
+We will therefore handle strings for the model and manufacturer but a number for the year.
+
+Compared to our last snippet, you can now add the type `Car` to your variable declaration, after the variable name.
+
+```typescript ins=": Car"
+const car: Car = {
+  make: "Toyota",
+  model: "Corolla",
+  year: 2020,
+};
+```
+
+<NotificationCard state="info" title="TypeScript creation format">
+The TypeScript creation format is composed as follows:
+
+```typescript
+<property>: <type> = <value>;
+```
+
+`[]` is used to define an array, as in `tasks: Task[]`.
+
+</NotificationCard>
+
+## What are the benefits of using TypeScript?
+
+- **Auto-completion**: When you define a type for a variable, you get auto-completion for that type's properties.
+
+- **Type checking**: TypeScript will check if you're using the correct type for a variable.
+
+- **IDE Support**: Your IDE will warn you if you use the wrong type for a variable.
+
+- **Compilation Errors**: TypeScript will detect errors at compile time.
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you learned how to create your first TypeScript model. You
+  learned how to define a TypeScript interface and use it to create a new
+  object.
+
+There are some advanced usages not covered in this course, like generic types, enums, and more.
+Besides adding types, most of your code written in TypeScript will be valid JavaScript code.
+
+</NotificationCard>
