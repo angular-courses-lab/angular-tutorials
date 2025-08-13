@@ -1,53 +1,93 @@
-# Starlight Starter Kit: Tailwind
+# Angular Tutorials
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+A comprehensive Angular learning resource, featuring step-by-step tutorials for building a complete task management application.
 
-```
-pnpm create astro@latest -- --template starlight/tailwind
-```
+## 📚 About This Project
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+This project provides a structured learning path for Angular developers, from basic concepts to advanced features. The tutorials guide you through building a complete task management application, covering:
 
-## 🚀 Project Structure
+### 🚀 Getting Started
 
-Inside of your Astro + Starlight project, you'll see the following folders and files:
+- **Introduction to Angular** - Overview of the framework and its benefits
+- **Prerequisites** - What you need to know before starting
+- **TypeScript Introduction** - Essential TypeScript concepts for Angular
+- **Learning Process** - How to approach Angular learning effectively
+- **Getting Started** - Setting up your development environment
+
+### 🎯 Core Concepts
+
+- **Task Listing** - Building your first components and displaying data
+  - Components introduction
+  - Creating your first component
+  - Task interface and data structures
+  - Interpolation and data binding
+  - Using pipes for data transformation
+  - Displaying lists with `*ngFor`
+  - Adding UI libraries for better styling
+
+### 🔧 Advanced Features
+
+- **Reusable Components** - Building modular, maintainable code
+
+  - Component inputs and outputs
+  - Creating reusable components
+  - Event handling and communication
+  - Prefilling forms and data management
+  - Bulk operations (delete all tasks)
+
+- **Task Management** - Full CRUD operations
+
+  - **Create Task** - Forms, services, and dependency injection
+  - **Update Task** - Editing existing data and form handling
+  - **Delete Task** - Removing data and UI updates
+
+- **API Integration** - Backend connectivity
+  - Setting up JSON Server
+  - HTTP client configuration
+  - CRUD operations with REST APIs
+  - Error handling and data management
+
+## 🌍 Multi-language Support
+
+The tutorials are available in both English, French, and German, making them accessible to a wider audience of developers.
+
+## 🏗️ Project Structure
 
 ```
 .
-├── public/
+├── public/                 # Static assets (images, favicon)
 ├── src/
-│   ├── assets/
+│   ├── assets/            # Project images and media
+│   ├── components/        # React components for enhanced UI
 │   ├── content/
 │   │   └── docs/
+│   │       ├── en/        # English tutorials
+│   │       └── fr/        # French tutorials
 │   ├── styles/
-│   │   └── global.css
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
+│   │   └── global.css     # Global styles and Tailwind CSS
+│   └── content.config.ts  # Content configuration
+├── astro.config.mjs       # Astro configuration
+├── package.json           # Dependencies and scripts
+└── tsconfig.json          # TypeScript configuration
 ```
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
-
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
-
-Static assets, like favicons, can be placed in the `public/` directory.
-
-The project includes [Tailwind CSS](https://starlight.astro.build/guides/css-and-tailwind/#tailwind-css) for styling. Customize your design by modifying `src/styles/global.css`.
-
-## 🧞 Commands
+## 🧞 Local Development
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
+| Command                | Action                                           |
+| :--------------------- | :----------------------------------------------- |
+| `pnpm install`         | Installs dependencies                            |
 | `pnpm dev`             | Starts local dev server at `localhost:4321`      |
 | `pnpm build`           | Build your production site to `./dist/`          |
 | `pnpm preview`         | Preview your build locally, before deploying     |
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+## 🎨 Styling
 
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+The project uses [Tailwind CSS](https://starlight.astro.build/guides/css-and-tailwind/#tailwind-css) for styling. Customize your design by modifying `src/styles/global.css`.
+
+## 📖 Content Management
+
+Tutorials are written in Markdown (`.mdx`) files located in `src/content/docs/`. Each file is automatically exposed as a route based on its file name. Images can be added to `src/assets/` and embedded in Markdown with relative links.
