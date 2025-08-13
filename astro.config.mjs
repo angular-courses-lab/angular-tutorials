@@ -12,6 +12,10 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Angular Tutorials",
+      favicon: "/favicon.svg",
+      logo: {
+        src: "/public/favicon.svg",
+      },
       social: [
         {
           icon: "github",
