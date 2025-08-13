@@ -12,15 +12,20 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Angular Tutorials",
-      favicon: "/favicon.svg",
+      favicon: "/public/angular-logo.png",
       logo: {
-        src: "/public/favicon.svg",
+        src: "/public/angular-logo.png",
       },
       social: [
         {
           icon: "github",
           label: "GitHub",
           href: "https://github.com/dolmen-tools/angular-tutorials",
+        },
+        {
+          icon: "comment",
+          label: "AI RAG Assistant",
+          href: "https://www.dolmen.tools/en/angular/angie/chat",
         },
       ],
       sidebar: [
