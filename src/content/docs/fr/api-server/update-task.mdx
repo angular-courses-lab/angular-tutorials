@@ -1,0 +1,165 @@
+---
+title: Update a Task with HTTP Client
+description: Learn how to update a task in a list using HTTP Client in an Angular application.
+course: angular-20
+slug: "api-server-update-task"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Update a task using HTTP Client</strong>
+      <p>Update a task in the list by making an API call to the mock server.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+In addition to targeting task updates rather than creation, this lesson will be quite similar to the previous one:
+
+- You will update **TaskService**
+- You will update **TaskForm** component while paying attention to the asynchronous HTTP request.
+
+## TaskService
+
+Based on the HTTP protocol, you will use the **patch** function to update a task in the list: **http.patch()**.
+
+**Why PATCH instead of PUT?**
+- **PATCH** is used for partial updates - you only send the fields that need to be changed
+- **PUT** replaces the entire resource - you need to send all fields, even unchanged ones
+- Since we're only updating specific properties of a task (like marking it as completed), **PATCH** is more efficient and appropriate
+
+
+This function expects 2 parameters:
+
+1. The API server URL; This URL will include the ID of the task to update: `http://localhost:3000/tasks/${task.id}`
+2. The task object to send to the server
+
+```typescript
+updateTask(task: Partial<Task>, id: string) {
+    return this.http.patch<Task>(`http://localhost:3000/tasks/${id}`, task);
+}
+```
+
+<Steps>
+
+1. Update the **task.service.ts** file.
+
+   ```typescript ins={"Replace the getTask function": 10-13} ins={"Replace the updateTask function": 14-17}
+   import { Injectable, inject } from "@angular/core";
+   import { HttpClient } from "@angular/common/http";
+   import { Task, TaskForm } from "./task.model";
+
+   @Injectable({
+     providedIn: "root",
+   })
+   export class TaskService {
+     private http = inject(HttpClient);
+
+     getTask(id: string) {
+       return this.http.get<Task>(`http://localhost:3000/tasks/${id}`);
+     }
+
+     updateTask(task: Partial<Task>, id: string) {
+       return this.http.patch<Task>(`http://localhost:3000/tasks/${id}`, task);
+     }
+   }
+   ```
+
+</Steps>
+
+## Retrieving the Task to Update
+
+You just updated the **getTask** function to retrieve a specific task.
+Like the previously changed functions to communicate with the API, this function will now alter the existing code in the **TaskFormComponent**.
+While the function name doesn't change, you'll now need to **subscribe** to get its value.
+
+```typescript
+ngOnInit() {
+   this.id = this.route.snapshot.paramMap.get('id');
+
+    if (this.id) {
+      this.taskService.getTask(this.id).subscribe(task => {
+        this.form.patchValue(task);
+      });
+    }
+  }
+```
+
+<Steps>
+
+1.  Update the **task-form.ts** file.
+
+        ```typescript ins={"Replace the getTask function": 5-7}
+
+            ngOnInit() {
+                this.id = this.route.snapshot.paramMap.get('id');
+
+                if (this.id) {
+
+                    this.taskService.getTask(this.id).subscribe(task => {
+                        this.form.patchValue(task);
+                    });
+                }
+            }
+
+        ```
+
+</Steps>
+
+## TaskForm
+
+Update **TaskForm** component to use the new function.
+The simplest way would be to apply the same logic as in the previous lesson, updating the **submit** function to make an API call and navigate to the list page.
+
+This would give the following code:
+
+```typescript ins={"Modify the update part": 3-6}
+submit() {
+    if (this.id) {
+
+        this.taskService.updateTask(this.form.value, id).subscribe(() => {
+            this.router.navigate(['/']);
+        });
+    } else {
+        this.taskService.addTask(this.form.value).subscribe(() => {
+            this.router.navigate(['/']);
+        });
+    }
+}
+```
+
+This works but it's not the best way to proceed as we're duplicating the navigation logic. If the list page path changes, we would need to update it in two places.
+Handle it by modifying the **submit** function:
+
+- Create a variable whose value will be either the **updateTask** or **addTask** function. Its value will therefore be an **Observable** that you can subscribe to.
+- Subscribe to this variable and navigate to the list page.
+
+<Steps>
+
+1. Update the **task-form.ts** file.
+
+   ```typescript ins={"Refactor the submit function": 3-12}
+
+     submit() {
+       this.id = this.route.snapshot.paramMap.get("id");
+
+       const taskObservable = this.id
+         ? this.taskService.updateTask(this.form.value, this.id)
+         : this.taskService.addTask(this.form.value);
+
+       taskObservable.subscribe(() => {
+         this.router.navigate(["/"]);
+       });
+     }
+
+   ```
+
+</Steps>
+
+<NotificationCard state="success" title="What you've learned">
+  You have learned how to send a <strong>PATCH</strong> request with HttpClient to
+  update a task in an Angular application.
+</NotificationCard>

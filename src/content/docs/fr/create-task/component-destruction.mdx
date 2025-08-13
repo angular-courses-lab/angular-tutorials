@@ -1,0 +1,64 @@
+---
+title: Component Destruction
+description: Learn about component lifecycle and cleanup in Angular
+course: angular-20
+slug: "create-task-component-destruction"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Understand component lifecycle</strong>
+      <p>Learn about the lifecycle hooks in Angular components.</p>
+    </li>
+    <li>
+      <strong>Implement cleanup logic</strong>
+      <p>Master the ngOnDestroy hook for proper component cleanup.</p>
+    </li>
+    <li>
+      <strong>Handle subscriptions</strong>
+      <p>Learn how to properly manage and clean up subscriptions.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+When you submit the form, the **task** property of **TaskForm** is populated with the values you entered in the form.
+For example, given that you filled in the name and description fields, the **task** property will be:
+
+```typescript
+form = new FormGroup({
+  title: new FormControl(''),
+  description: new FormControl('')
+});
+```
+
+By submitting the form and navigating to a new page, you also leave the **TaskForm**.
+When you leave a component, it is destroyed.
+
+Thus, when navigating back to this form, the form will be initialized with empty values:
+
+```typescript
+form = new FormGroup({
+  title: new FormControl(''),
+  description: new FormControl('')
+});
+```
+
+A new instance of the **TaskForm** is created each time you access it.
+Therefore, any local state you define in the component is lost when you navigate to another route.
+
+<NotificationCard state="info" title="Note">
+  This is why you use the **TaskService** to store the new task. The service is
+  a singleton, meaning it's a unique instance shared across the application.
+  Unless you force the application to reload in the browser, the tasks you've
+  added will be preserved.
+</NotificationCard>
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you learned about the Angular component lifecycle and how
+  local state is reset when a component is destroyed and recreated. You also
+  learned why services are used to persist data across navigation.
+</NotificationCard>

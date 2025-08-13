@@ -1,0 +1,56 @@
+---
+title: Create a reusable component
+description: Create a reusable component
+course: angular-20
+slug: "reusable-components-create-reusable-component"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+# Create a reusable component
+
+There is nothing specific to reusable components, you can create them like any other component.
+
+But as their usage is meant to be *shared* across multiple components, that's a good opportunity to organize them in a dedicated folder.
+
+## Create the folder
+
+Common practice is to create a new folder in the `src/app` folder called `shared`.
+
+Inside this folder, create a new folder called `components`.
+This is where you'll put all your reusable components.
+
+## Create the component
+
+So far `ng generate` commands were runned at the root of the project.
+By doing so, Angular generates new files directly in `src/app` folder, where the Angular application is located.
+
+But as we'll create components in the `shared` folder, we need to run the command from there.
+
+There are three ways to do that:
+
+##### Change the current working directory in your terminal
+
+- firstly changing the current working directory to `src/app/shared/components`
+- then running the `ng generate component` command
+
+```bash
+cd src/app/shared/components
+ng generate component alert-banner
+```
+
+##### Use the `--path` flag
+
+```bash
+ng generate component alert-banner --path=src/app/shared/components
+```
+
+##### prefix the component name
+
+```bash
+ng generate component shared/components/alert-banner
+```
+
+
+

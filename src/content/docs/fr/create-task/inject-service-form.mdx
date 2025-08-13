@@ -1,0 +1,76 @@
+---
+title: Inject the Service in the Form
+description: Learn how to inject a service into a form component in Angular.
+course: angular-20
+slug: "create-task-inject-service-form"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Inject a service in the form</strong>
+      <p>Learn how to inject a service into a form component in Angular.</p>
+    </li>
+  </ul>
+</NotificationCard>
+
+## Inject TaskService into TaskForm component
+
+The first step is to inject the service into your component.
+
+<Steps>
+
+1. Update the file `src/app/task-form.ts`.
+
+   ```typescript ins={"1. Import TaskService": 3-4} ins={"2. Inject TaskService  with inject function": 12-13} ins={"3. Call the addTask function from TaskService": 19-22}
+   // task-form.ts
+   import { Component, inject } from "@angular/core";
+
+   import { TaskService } from "../task-service";
+
+   @Component({
+     selector: "app-task-form",
+     templateUrl: "./task-form.html",
+     styleUrls: ["./task-form.css"],
+   })
+   export class TaskFormComponent {
+
+     private taskService = inject(TaskService);
+
+     form = new FormGroup({
+       title: new FormControl(''),
+       description: new FormControl('')
+     });
+
+     submit() {
+       this.taskService.addTask(this.form.value);
+     }
+   }
+   ```
+
+</Steps>
+
+The **TaskFormComponent** class now uses **TaskService** to add a new task to the list.
+
+## Let's test it
+
+<Steps>
+
+1. Go back to your browser
+2. Click on the `Add new task` link
+3. Enter a title and description in the form
+4. Click the `Submit` button
+5. Click on the `Task list` link
+
+</Steps>
+
+You should see the new task in the list.
+
+<NotificationCard state="success" title="What you've learned">
+  You've learned to use <strong>TaskService</strong> once again! This time to
+  trigger the <strong>addTask</strong> function to add a new task to the task
+  list. Well done! 🤩
+</NotificationCard>

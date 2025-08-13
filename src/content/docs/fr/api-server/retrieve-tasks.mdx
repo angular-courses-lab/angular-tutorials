@@ -1,0 +1,228 @@
+---
+title: Retrieve Tasks with HTTP Client
+description: Learn how to retrieve tasks from a list using HTTP Client in an Angular application.
+course: angular-20
+slug: "api-server-retrieve-tasks"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objectives">
+  <ul className="list-disc pl-4 space-y-2">
+    <li>
+      <strong>Retrieve tasks using HTTP Client</strong>
+      <p>
+        Learn how to retrieve tasks from the list using HTTP Client in an
+        Angular application.
+      </p>
+    </li>
+  </ul>
+</NotificationCard>
+
+## Update TaskService
+
+The **HttpClient** service exposes several functions that allow you to make HTTP requests to a server. In this chapter, you'll use the **get** method to retrieve the task list from the API server.
+
+<NotificationCard state="info" title="Note">
+  **get** refers to **GET** requests in the HTTP protocol.
+</NotificationCard>
+
+This function takes the API server route path as a parameter: `http://localhost:3000/tasks`.
+This is the URL it will query to get the list of tasks.
+
+```typescript
+getTasks(): Observable<Task[]> {
+  return this.http.get<Task[]>('http://localhost:3000/tasks');
+}
+```
+
+This new **getTasks** method defines the communication with the API server:
+
+- It makes a **GET** request;
+- It expects an array of **Task** objects in response;
+- It communicates with the API server at the URL `http://localhost:3000/tasks`.
+
+<NotificationCard state="warning" title="Warning">
+  The API will be responsible for retrieving the task list and you won't need
+  the **tasks** variable in **TaskService** anymore. However, since some code
+  still depends on this variable, you'll need to keep it for now.
+</NotificationCard>
+
+<Steps>
+
+1. Update the file `src/app/task.service.ts`.
+
+   ```typescript ins={"Add the getTasks function": 24-27}
+   import { Injectable, signal, WritableSignal } from "@angular/core";
+   import { HttpClient } from "@angular/common/http";
+   import { Task } from "./task.model";
+   import { Observable } from "rxjs";
+
+   @Injectable({
+     providedIn: "root",
+   })
+   export class TaskService {
+     private http = inject(HttpClient);
+
+     tasks: WritableSignal<Task[]> = signal([
+       {
+         id: "1",
+         title: "First task",
+         description: "This is the first task in your to-do list.",
+       },
+       {
+         id: "2",
+         title: "Second task",
+         description: "This is the second task in your to-do list.",
+       },
+     ]);
+
+     getTasks(): Observable<Task[]> {
+       return this.http.get<Task[]>("http://localhost:3000/tasks");
+     }
+   }
+   ```
+
+</Steps>
+
+## Update TaskList
+
+Update **TaskList** to use the new **getTasks** method and rename the **tasks** variable to **tasks$**. Adding `$` indicates that it's an Observable.
+
+```typescript
+tasks$ = this.taskService.getTasks();
+```
+
+Why? What is an observable?
+
+**tasks** was an array of **Task** objects. Now, **tasks$** is an observable of an array of **Task** objects.
+
+By calling the **getTasks** function, we get an Observable that will emit the list of tasks once received from the API server.
+To differentiate an observable value, the Angular community commonly uses the `$` suffix in Angular applications.
+
+<NotificationCard state="info" title="Note">
+  An Observable **observes** a data stream.
+</NotificationCard>
+
+<Steps>
+
+1. Update the file `src/app/task-list/task-list.ts`.
+
+   ```typescript del={"Remove the tasks variable": 11-12} ins={"Replace it with the tasks$ variable": 13-14}
+   import { Component } from "@angular/core";
+   import { TaskService } from "../task.service";
+   import { Task } from "../task.model";
+
+   @Component({
+     selector: "app-task-list",
+     templateUrl: "./task-list.html",
+     styleUrl: "./task-list.css",
+   })
+   export class TaskList {
+     private taskService = inject(TaskService);
+     tasks: Task[] = this.taskService.tasks;
+
+     tasks$ = this.taskService.getTasks();
+   }
+   ```
+
+</Steps>
+
+## Subscription
+
+Calling the **getTasks** function won't trigger the API request immediately. Since it hasn't been triggered yet, the observable won't emit any values.
+Trigger what we call a subscription to the observable to start the request.
+
+<NotificationCard state="info" title="Note">
+  You **subscribe** to an observable like you would subscribe to a newspaper.
+  You request the latest issue of the newspaper. Only once it's available, it's
+  delivered to you and you can read it.
+</NotificationCard>
+
+### How to subscribe?
+
+There are several ways to subscribe to an observable.
+For the given situation, use the **async** pipe in the HTML Template.
+
+Like the **date** pipe used previously, the role of the **async** pipe is to transform data before displaying it.
+Here its role will be to subscribe to the observable and return the list of tasks once available.
+
+<NotificationCard state="info" title="Note">
+  Although alternatives exist, the **async** pipe is the recommended way to
+  subscribe to an observable in the HTML Template. You'll discover the
+  alternative at the end of this page.
+</NotificationCard>
+
+<Steps>
+
+1. Update the `src/app/task-list/task-list.html` file.
+
+   ```html ins="tasks$ | async"
+   @for (task of tasks$ | async; track task.id ) {
+      <tr>
+        <td>{{ task.title }}</td>
+        <td>{{ task.createdAt | date}}</td>
+        <td>
+          <a class="btn btn-secondary m-1" [routerLink]="['/update', task.id]">Update</a>
+        <button class="btn btn-danger m-1" type="button" (click)="deleteTask(task.id)">Delete</button>
+        </td>
+      </tr>
+      }
+   ```
+
+</Steps>
+
+### Alternative
+
+The alternative to using the **async** pipe is to subscribe to the observable in the component.
+
+This is done by calling the **subscribe** function on the observable and passing a callback function as a parameter.
+This callback will be made once the data is available.
+
+This subscription will be used in the **ngOnInit** function of the **TaskListComponent** class.
+
+<Steps>
+
+1. Update the `src/app/task-list/task-list.ts` file.
+
+   ```typescript ins={"Subscribe to the observable": 14-17}
+   import { Component, OnInit } from "@angular/core";
+   import { TaskService } from "../task.service";
+   import { Task } from "../task.model";
+
+   @Component({
+     selector: "app-task-list",
+     templateUrl: "./task-list.component.html",
+     styleUrls: ["./task-list.component.css"],
+   })
+   export class TaskListComponent implements OnInit {
+     private taskService = inject(TaskService);
+
+     tasks: Task[] = this.taskService.tasks;
+
+     ngOnInit() {
+       this.taskService.getTasks().subscribe((tasks) => (this.tasks = tasks));
+     }
+   }
+   ```
+
+</Steps>
+
+### Pitfalls
+
+Although subscribing to the observable in the component is a valid solution, it lacks some optimizations provided by the **async** pipe.
+It also requires more code for the same result.
+
+Indeed, when you use the subscription to the observable in the component, you need to think about **unsubscribing**.
+We won't cover this action for now. You can discuss with your mentor for more details.
+
+
+**Zoneless Change Detection**:
+
+Traditional Angular applications use **Zone.js** to automatically detect when changes occur (like user clicks, HTTP responses, or timers) and update the UI accordingly. **Zoneless change detection** is a modern approach but not stable for the moment where Angular doesn't automatically track these changes. Instead, developers have more control over when the UI updates, typically using signals or explicit change detection triggers. This can lead to better performance and more predictable behavior, but requires a slightly different development approach.
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you've learned one of Angular's key features: how to query
+  data from an API server!
+</NotificationCard>
