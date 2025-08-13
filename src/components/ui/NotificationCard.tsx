@@ -95,14 +95,10 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
 
   return (
     <div
-      className={`!mt-12 pt-6 pb-4 px-8 ${config.bg} rounded-lg border ${config.border} relative`}
+      className={`!mt-12 py-4 px-6 ${config.bg} rounded-lg border ${config.border} relative`}
     >
-      <div className="absolute -top-5 left-8 flex items-center">
-        <div
-          className={`${config.iconBg} p-2 rounded-full border ${config.iconBorder}`}
-        >
-          <Icon className={`w-5 h-5 ${config.iconColor}`} />
-        </div>
+      <div className="flex items-center">
+        <Icon className={`w-5 h-5 ${config.iconColor}`} />
         <span
           className={`text-lg font-medium ${config.titleText} px-4 py-0.5 rounded-md`}
         >
