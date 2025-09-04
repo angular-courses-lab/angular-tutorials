@@ -94,7 +94,7 @@ You will use the **Task** interface to define the type of the tasks variable.
 In JavaScript, you would define the tasks variable like this:
 
 ```javascript
-let tasks = [
+tasks = [
   {
     title: "Task 1",
     description: "Description of task 1",
@@ -111,7 +111,7 @@ let tasks = [
 To assign a type to a variable in TypeScript, you can use the `:` operator followed by the variable type:
 
 ```typescript ins=": Task[]"
-let tasks: Task[] = [
+tasks: Task[] = [
   {
     title: "Task 1",
     description: "Description of task 1",
@@ -133,7 +133,7 @@ To make a property reactive with Signals, use the `signal` function and pass it 
 Its type change too: as we want to be able to update the task list, we need to use the `WritableSignal` type.
 
 ```typescript ins="WritableSignal<Task[]>" ins="signal(" ins="]);"
-let tasks: WritableSignal<Task[]> = signal([
+tasks: WritableSignal<Task[]> = signal([
   {
     title: "Task 1",
     description: "Description of task 1",
