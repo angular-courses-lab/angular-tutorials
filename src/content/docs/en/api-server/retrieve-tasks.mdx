@@ -5,7 +5,7 @@ course: angular-20
 slug: "api-server-retrieve-tasks"
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
 <NotificationCard state="objective" title="Chapter Objectives">
@@ -109,7 +109,7 @@ To differentiate an observable value, the Angular community commonly uses the `$
 
 1. Update the file `src/app/task-list/task-list.ts`.
 
-   ```typescript del={"Remove the tasks variable": 11-12} ins={"Replace it with the tasks$ variable": 13-14}
+   ```typescript del={"Remove the tasks variable": 12-13} ins={"Replace it with the tasks$ variable": 14-15}
    import { Component } from "@angular/core";
    import { TaskService } from "../task.service";
    import { Task } from "../task.model";
@@ -121,6 +121,7 @@ To differentiate an observable value, the Angular community commonly uses the `$
    })
    export class TaskList {
      private taskService = inject(TaskService);
+
      tasks: Task[] = this.taskService.tasks;
 
      tasks$ = this.taskService.getTasks();
@@ -160,15 +161,23 @@ Here its role will be to subscribe to the observable and return the list of task
 
    ```html ins="tasks$ | async"
    @for (task of tasks$ | async; track task.id ) {
-      <tr>
-        <td>{{ task.title }}</td>
-        <td>{{ task.createdAt | date}}</td>
-        <td>
-          <a class="btn btn-secondary m-1" [routerLink]="['/update', task.id]">Update</a>
-        <button class="btn btn-danger m-1" type="button" (click)="deleteTask(task.id)">Delete</button>
-        </td>
-      </tr>
-      }
+   <tr>
+     <td>{{ task.title }}</td>
+     <td>{{ task.createdAt | date}}</td>
+     <td>
+       <a class="btn btn-secondary m-1" [routerLink]="['/update', task.id]"
+         >Update</a
+       >
+       <button
+         class="btn btn-danger m-1"
+         type="button"
+         (click)="deleteTask(task.id)"
+       >
+         Delete
+       </button>
+     </td>
+   </tr>
+   }
    ```
 
 </Steps>
@@ -216,7 +225,6 @@ It also requires more code for the same result.
 
 Indeed, when you use the subscription to the observable in the component, you need to think about **unsubscribing**.
 We won't cover this action for now. You can discuss with your mentor for more details.
-
 
 **Zoneless Change Detection**:
 
