@@ -50,7 +50,7 @@ updateTask(task: Partial<Task>, id: string) {
    ```typescript ins={"Replace the getTask function": 10-13} ins={"Replace the updateTask function": 14-17}
    import { Injectable, inject } from "@angular/core";
    import { HttpClient } from "@angular/common/http";
-   import { Task, TaskForm } from "./task.model";
+   import { Task } from "./task.model";
 
    @Injectable({
      providedIn: "root",

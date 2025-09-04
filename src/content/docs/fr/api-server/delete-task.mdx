@@ -37,7 +37,7 @@ deleteTask(id: string) {
    ```typescript ins={"Add the deleteTask function": 10-16}
    import { Injectable, inject } from "@angular/core";
    import { HttpClient } from "@angular/common/http";
-   import { Task, TaskForm } from "./task.model";
+   import { Task } from "./task.model";
 
    @Injectable({
      providedIn: "root",
