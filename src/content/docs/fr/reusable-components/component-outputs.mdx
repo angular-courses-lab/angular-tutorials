@@ -1,16 +1,16 @@
 ---
-title: Component output
-description: Component output
+title: Component outputs
+description: Component outputs
 course: angular-20
-slug: "reusable-components-component-output"
+slug: "reusable-components-component-outputs"
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
 # Component output
 
-One key feature of reusable components is  to notify the parent component that an action has been performed.
+One key feature of reusable components is to notify the parent component that an action has been performed.
 In the `AlertBanner` component, we want to add a button, triggering a different action based on its usage:
 
 - in the `TaskList` component, we want to call a function to delete all tasks
@@ -26,49 +26,61 @@ To do so, we'll use the `output` feature of Angular.
 
 1. Update the `AlertBanner` class:
 
-    ```typescript
-    import { output } from '@angular/core';
+   ```typescript
+   import { output } from "@angular/core";
 
-    onSubmit = output<void>();
-    ```
+   onSubmit = output<void>();
+   ```
 
 2. Update the template of `alert-banner.html` file:
 
-    ```html
-    <button class="btn"
-      [class.btn-info]="type() ? type() === 'info' : false"
-      [class.btn-error]="type() ? type() === 'error' : false"
-      (click)="onSubmit.emit()">Proceed</button>
-    ```
+   ```html
+   <button
+     class="btn"
+     [class.btn-info]="type() ? type() === 'info' : false"
+     [class.btn-error]="type() ? type() === 'error' : false"
+     (click)="onSubmit.emit()"
+   >
+     Proceed
+   </button>
+   ```
 
 3. Update the `TaskList` class:
 
-    ```typescript
-    deleteAllTasks() {
-        // TODO: delete all tasks
-    }
-    ```
+   ```typescript
+   deleteAllTasks() {
+       // TODO: delete all tasks
+   }
+   ```
 
 4. Update the template of `task-list.html` file:
 
-    ```html
-    <app-alert-banner message="Do you really want to delete all tasks?" type="error" (onSubmit)="deleteAllTasks()"/>
-    ```
+   ```html
+   <app-alert-banner
+     message="Do you really want to delete all tasks?"
+     type="error"
+     (onSubmit)="deleteAllTasks()"
+   />
+   ```
 
 5. Update the `TaskForm` class:
 
-    ```typescript
-    preFillForm() {
-        // TODO: pre fill the form with basic information
-    }
-    ```
+   ```typescript
+   preFillForm() {
+       // TODO: pre fill the form with basic information
+   }
+   ```
 
 6. Update the template of `task-form.html` file:
 
-    ```html
-    <app-alert-banner message="Do you want to prefill Form?" type="info" (onSubmit)="preFillForm()" />
-    ```
+   ```html
+   <app-alert-banner
+     message="Do you want to prefill Form?"
+     type="info"
+     (onSubmit)="preFillForm()"
+   />
+   ```
 
-5. Test the application.
+7. Test the application.
 
 </Steps>
