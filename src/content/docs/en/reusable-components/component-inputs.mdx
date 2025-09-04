@@ -5,7 +5,7 @@ course: angular-20
 slug: "reusable-components-component-input"
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
 # Component inputs
@@ -18,7 +18,7 @@ The banner displays a message but not only it's a placeholder unrelated to the a
 **Inputs** are a way to pass data to the component, from the template where it's used:
 
 - the TaskList component will pass a 'delete' message to the AlertBanner component
-- the TaskForm component will pass a different  'prefill' message to the AlertBanner component
+- the TaskForm component will pass a different 'prefill' message to the AlertBanner component
 
 We will define `inputs` to make the component more adaptable to different use cases.
 
@@ -33,22 +33,24 @@ We'll firstly define these properties in the `AlertBanner` class, then pass the 
 1. Update the `AlertBanner` class:
 
    ```typescript ins="input "
-   // alert-banner.component.ts
+   // alert-banner.ts
    import { Component, input } from "@angular/core";
 
    message = input.required<string>();
    ```
 
-    <NotificationCard state="info" title="Note">
-      The input is marked as required: it'll throw an error if the parent component does not provide a value for it.
-      In some situations, inputs are just optional.
-    </NotificationCard>
+   {" "}
+   <NotificationCard state="info" title="Note">
+     The input is marked as required: it'll throw an error if the parent
+     component does not provide a value for it. In some situations, inputs are
+     just optional.
+   </NotificationCard>
 
 2. Update the template of `alert-banner.html` file:
 
    ```html ins="{{ message() }}"
    <div role="alert" class="alert alert-vertical alert-info alert-soft">
-       <span>{{ message() }}</span>
+     <span>{{ message() }}</span>
    </div>
    ```
 
@@ -68,7 +70,6 @@ We'll firstly define these properties in the `AlertBanner` class, then pass the 
 
 </Steps>
 
-
 We'll add another input, to dynamically define the type of alter: info or error.
 It'll help us apply different CSS styles to the alert banner based on the type of message.
 
@@ -85,27 +86,33 @@ It'll help us apply different CSS styles to the alert banner based on the type o
 2. Update the template of `alert-banner.html` file:
 
    <NotificationCard state="info" title="Note">
-     The available classes are `alert-info` and `alert-error`, not just `info` and `error`. We use Angular's `[class.className]` binding to conditionally apply CSS classes based on the type value. The `[class.className]` syntax adds the class when the expression is true.
+     The available classes are `alert-info` and `alert-error`, not just `info`
+     and `error`. We use Angular's `[class.className]` binding to conditionally
+     apply CSS classes based on the type value. The `[class.className]` syntax
+     adds the class when the expression is true.
    </NotificationCard>
 
    ```html
-    <div role="alert" class='alert alert-vertical alert-soft'
-      [class.alert-info]="type() ? type() === 'info' : false"
-      [class.alert-error]="type() ? type() === 'error' : false">
-      <span>{{ message() }}</span>
-    </div>
+   <div
+     role="alert"
+     class="alert alert-vertical alert-soft"
+     [class.alert-info]="type() ? type() === 'info' : false"
+     [class.alert-error]="type() ? type() === 'error' : false"
+   >
+     <span>{{ message() }}</span>
+   </div>
    ```
 
 3. Update the template of `task-list.html` file:
 
    ```html
-   <app-alert-banner message="Hello Task List" type="error"/>
+   <app-alert-banner message="Hello Task List" type="error" />
    ```
 
 4. Update the template of `task-form.html` file:
 
    ```html
-   <app-alert-banner message="Hello Task Form"  type="info" />
+   <app-alert-banner message="Hello Task Form" type="info" />
    ```
 
 5. Test the application.

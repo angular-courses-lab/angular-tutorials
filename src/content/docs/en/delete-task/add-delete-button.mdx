@@ -71,7 +71,7 @@ This function will call the **deleteTask** function of **TaskService** created i
      templateUrl: './task-list.html',
      styleUrl: './task-list.css'
    })
-   export class TaskListComponent {
+   export class TaskList {
      private taskService = inject(TaskService);
 
      tasks: Task[] = this.taskService.tasks;

@@ -202,10 +202,10 @@ This subscription will be used in the **ngOnInit** function of the **TaskListCom
 
    @Component({
      selector: "app-task-list",
-     templateUrl: "./task-list.component.html",
-     styleUrls: ["./task-list.component.css"],
+     templateUrl: "./task-list.html",
+     styleUrls: ["./task-list.css"],
    })
-   export class TaskListComponent implements OnInit {
+   export class TaskList implements OnInit {
      private taskService = inject(TaskService);
 
      tasks: Task[] = this.taskService.tasks;
