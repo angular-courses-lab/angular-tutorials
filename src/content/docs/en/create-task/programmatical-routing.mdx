@@ -70,12 +70,6 @@ This service allows you to retrieve information about the current route and enab
        description: "",
      };
 
-     constructor(
-       private taskService: TaskService,
-
-       private router: Router,
-     ) {}
-
      submit() {
        this.taskService.addTask(this.task);
 
