@@ -51,7 +51,7 @@ This new **getTasks** method defines the communication with the API server:
 
 <Steps>
 
-1. Update the file `src/app/task.service.ts`.
+1. Update the file `src/app/task-service.ts`.
 
    ```typescript ins={"Add the getTasks function": 24-27}
    import { Injectable, signal, WritableSignal } from "@angular/core";
@@ -111,7 +111,7 @@ To differentiate an observable value, the Angular community commonly uses the `$
 
    ```typescript del={"Remove the tasks variable": 11-12} ins={"Replace it with the tasks$ variable": 13-14}
    import { Component } from "@angular/core";
-   import { TaskService } from "../task.service";
+   import { TaskService } from "../task-service";
    import { Task } from "../task.model";
 
    @Component({
@@ -188,7 +188,7 @@ This subscription will be used in the **ngOnInit** function of the **TaskListCom
 
    ```typescript ins={"Subscribe to the observable": 14-17}
    import { Component, OnInit } from "@angular/core";
-   import { TaskService } from "../task.service";
+   import { TaskService } from "../task-service";
    import { Task } from "../task.model";
 
    @Component({

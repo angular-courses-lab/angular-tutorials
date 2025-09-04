@@ -32,7 +32,7 @@ deleteTask(id: string) {
 
 <Steps>
 
-1. Update the **task.service.ts** file.
+1. Update the **task-service.ts** file.
 
    ```typescript ins={"Add the deleteTask function": 10-16}
    import { Injectable, inject } from "@angular/core";
@@ -65,7 +65,7 @@ This would result in the following code:
 
    ```typescript ins={"Modify the deleteTask function": 13-18}
    import { Component } from "@angular/core";
-   import { TaskService } from "../task.service";
+   import { TaskService } from "../task-service";
 
    @Component({
      selector: "app-task-list",

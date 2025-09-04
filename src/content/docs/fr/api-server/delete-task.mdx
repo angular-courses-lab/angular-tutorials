@@ -5,7 +5,7 @@ course: angular-20
 slug: "api-server-delete-task"
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
 <NotificationCard state="objective" title="Chapter Objectives">
@@ -32,7 +32,7 @@ deleteTask(id: string) {
 
 <Steps>
 
-1. Update the **task.service.ts** file.
+1. Update the **task-service.ts** file.
 
    ```typescript ins={"Add the deleteTask function": 10-16}
    import { Injectable, inject } from "@angular/core";
@@ -65,7 +65,7 @@ This would result in the following code:
 
    ```typescript ins={"Modify the deleteTask function": 13-18}
    import { Component } from "@angular/core";
-   import { TaskService } from "../task.service";
+   import { TaskService } from "../task-service";
 
    @Component({
      selector: "app-task-list",
@@ -88,8 +88,11 @@ This would result in the following code:
 </Steps>
 
 <NotificationCard state="info" title="Note">
-  `document.location.reload();`
-  This is not best practice, but for simplicity we reload the page. In best practice, you would update the local state (signal or component data) by filtering out the deleted task from the current tasks array, avoiding the need to reload the entire page and providing a better user experience.
+  `document.location.reload();` This is not best practice, but for simplicity we
+  reload the page. In best practice, you would update the local state (signal or
+  component data) by filtering out the deleted task from the current tasks
+  array, avoiding the need to reload the entire page and providing a better user
+  experience.
 </NotificationCard>
 
 Following the same logic seen previously, we will wait for the request response to refresh the task list view.
