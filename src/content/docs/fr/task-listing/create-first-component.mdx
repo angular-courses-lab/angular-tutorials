@@ -7,7 +7,7 @@ slug: "task-listing-create-first-component"
 
 import { Image } from "astro:assets";
 import creationImg from "../../../../../public/first-component_creation.png";
-import { Steps } from '@astrojs/starlight/components';
+import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
 <NotificationCard state="objective" title="Chapter Objectives">
@@ -18,7 +18,9 @@ import NotificationCard from "../../../../components/ui/NotificationCard";
     </li>
     <li>
       <strong>Display the component</strong>
-      <p>Learn how to display the component's HTML template in the application.</p>
+      <p>
+        Learn how to display the component's HTML template in the application.
+      </p>
     </li>
   </ul>
 </NotificationCard>
@@ -47,14 +49,14 @@ Now use it to create a new component as the Angular CLI also provide a dedicated
 
 2. Look for the generated folder called `task-list` in the `src/app` directory.
 
-    ```diff
-    src
-    └─ app
-    +   └─ task-list
-    +       └─ task-list.ts
-    +       └─ task-list.html
-    +       └─ task-list.css
-    ```
+   ```diff
+   src
+   └─ app
+   +   └─ task-list
+   +       └─ task-list.ts
+   +       └─ task-list.html
+   +       └─ task-list.css
+   ```
 
 </Steps>
 
@@ -66,17 +68,15 @@ When opening the `task-list.ts` file, you can see the following code:
 
 ```typescript
 // task-list.ts
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-task-list',
+  selector: "app-task-list",
   imports: [],
-  templateUrl: './task-list.html',
-  styleUrls: ['./task-list.css']
+  templateUrl: "./task-list.html",
+  styleUrls: ["./task-list.css"],
 })
-export class TaskList {
-
-}
+export class TaskList {}
 ```
 
 ---
@@ -97,17 +97,15 @@ By using this selector in an HTML Template (view), Angular creates and displays 
 
 ```typescript ins="selector: 'app-task-list',"
 // task-list.ts
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-task-list',
+  selector: "app-task-list",
   imports: [],
-  templateUrl: './task-list.html',
-  styleUrls: ['./task-list.css']
+  templateUrl: "./task-list.html",
+  styleUrls: ["./task-list.css"],
 })
-export class TaskList {
-
-}
+export class TaskList {}
 ```
 
 ---
@@ -117,17 +115,15 @@ This is the view that will be displayed when the CSS **selector** is used in ano
 
 ```typescript ins="templateUrl: './task-list.html',"
 // task-list.ts
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-task-list',
+  selector: "app-task-list",
   imports: [],
-  templateUrl: './task-list.html',
-  styleUrls: ['./task-list.css']
+  templateUrl: "./task-list.html",
+  styleUrls: ["./task-list.css"],
 })
-export class TaskList {
-
-}
+export class TaskList {}
 ```
 
 ---
@@ -137,20 +133,18 @@ These styles will be applied to the component's template.
 
 ```typescript ins="styleUrls: ['./task-list.css']"
 // task-list.ts
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-task-list',
+  selector: "app-task-list",
   imports: [],
-  templateUrl: './task-list.html',
-  styleUrls: ['./task-list.css']
+  templateUrl: "./task-list.html",
+  styleUrls: ["./task-list.css"],
 })
-export class TaskList {
-
-}
+export class TaskList {}
 ```
 
-<NotificationCard title="Global styles" state="info" >
+<NotificationCard title="Global styles" state="info">
   Global styles can be defined in the `src/styles.css` file.
 </NotificationCard>
 
@@ -191,11 +185,10 @@ Then add it to the `imports` array of the **@Component** decorator for the compo
 ```ts ins="TaskList"
 // app.ts
 @Component({
-    // ...
-    imports: [TaskList],
-    })
-      export class App {
-    }
+  // ...
+  imports: [TaskList],
+})
+export class App {}
 ```
 
 ---
@@ -206,37 +199,36 @@ Then add it to the `imports` array of the **@Component** decorator for the compo
 
 1. Update the `template`property of the `app.ts` file as follows:
 
-    ```ts ins={"import the TaskList component": 5-6} ins={"Add the TaskList component to the App component imports": 10-11}
-    // app.ts
-      import { Component } from '@angular/core';
-      import { RouterOutlet } from '@angular/router';
+   ```ts ins={"import the TaskList component": 5-6} ins={"Add the TaskList component to the App component imports": 10-11}
+   // app.ts
+   import { Component } from "@angular/core";
+   import { RouterOutlet } from "@angular/router";
 
+   import { TaskList } from "./task-list/task-list";
 
-      import { TaskList } from './task-list/task-list';
+   @Component({
+     selector: "app-root",
 
-      @Component({
-      selector: 'app-root',
-
-      imports: [RouterOutlet, TaskList],
-      templateUrl: './app.html',
-      stylesUrl: ['./app.css'],
-    })
-      export class App {
-      protected title = 'angular-introduction-course';
-    }
-    ```
+     imports: [RouterOutlet, TaskList],
+     templateUrl: "./app.html",
+     stylesUrl: ["./app.css"],
+   })
+   export class App {
+     protected title = "angular-introduction-course";
+   }
+   ```
 
 2. Update the `app.html` file to display the `task-list` component:
 
-    ```html ins={"Add the component selector, and the <main> tag for proper HTML semantics and CSS management": 4-7}
-     <div class="navbar bg-base-100 shadow-sm">
-       <a class="btn btn-ghost text-xl">Task Manager</a>
-     </div>
+   ```html ins={"Add the component selector, and the <main> tag for proper HTML semantics and CSS management": 4-7}
+   <div class="navbar bg-base-100 shadow-sm">
+     <a class="btn btn-ghost text-xl">Task Manager</a>
+   </div>
 
-     <main class="m-12 max-w-screen-md mx-auto">
-       <app-task-list />
-     </main>
-    ```
+   <main class="m-12 max-w-screen-md mx-auto">
+     <app-task-list />
+   </main>
+   ```
 
 3. Check the changes in your browser.
 
@@ -263,10 +255,6 @@ Then add it to the `imports` array of the **@Component** decorator for the compo
 
 <br />
 
-- <a
-    class="!text-blue-200"
-    href="https://angular.dev/cli/generate/component"
-    target="_blank"
-  >
-    Angular CLI Documentation: generating a component
-  </a>
+<a href="https://angular.dev/cli/generate/component" target="_blank">
+  Angular CLI Documentation: generating a component
+</a>
