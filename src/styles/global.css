@@ -53,11 +53,14 @@
   --sl-color-gray-6: #ccfbf1;
   --sl-color-gray-7: #f0fdfa;
   --sl-color-black: #ffffff;
-  --code-background: red;
+  --sl-color-bg-nav: #ccfbf1;
+  --sl-color-bg-sidebar: #ccfbf1;
+  --sl-color-bg-inline-code: #ccfbf1;
+  --sl-color-hairline: #ccfbf1;
 }
 
-.expressive-code .frame pre {
-  background: #01302f !important;
+:root:not([data-theme="light"]) .expressive-code .frame pre {
+  background: var(--expressive-code-frame-pre-bg) !important;
 }
 
 main .content-panel {
