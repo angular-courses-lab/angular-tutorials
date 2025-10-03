@@ -13,7 +13,7 @@ export default defineConfig({
       title: "Angular Tutorials",
       favicon: "/public/favicon.svg",
       logo: {
-        src: "/public/favicon.svg",
+        src: "/public/logo.png",
       },
       social: [
         {
@@ -239,12 +239,6 @@ export default defineConfig({
         // English docs in `src/content/docs/en/`
         en: {
           label: "English",
-        },
-        fr: {
-          label: "Français",
-        },
-        de: {
-          label: "Deutsch",
         },
       },
     }),
