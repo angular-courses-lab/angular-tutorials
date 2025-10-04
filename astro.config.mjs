@@ -19,7 +19,7 @@ export default defineConfig({
         {
           icon: "github",
           label: "GitHub",
-          href: "https://github.com/dolmen-tools/angular-tutorials",
+          href: "https://github.com/angular-courses-lab/angular-tutorials",
         },
         {
           icon: "comment",
