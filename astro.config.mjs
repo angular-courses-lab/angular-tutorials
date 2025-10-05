@@ -13,7 +13,7 @@ export default defineConfig({
       title: "Angular Tutorials",
       favicon: "/public/favicon.svg",
       logo: {
-        src: "/public/logo.png",
+        src: "/public/logo.svg",
       },
       social: [
         {
