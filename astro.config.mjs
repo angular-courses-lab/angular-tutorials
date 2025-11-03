@@ -10,11 +10,8 @@ export default defineConfig({
   site: "https://tutorials.angular.courses",
   integrations: [
     starlight({
-      title: "Angular Tutorials",
+      title: "tutorials.angular.courses",
       favicon: "/public/favicon.svg",
-      logo: {
-        src: "/public/logo.svg",
-      },
       social: [
         {
           icon: "github",
@@ -27,6 +24,9 @@ export default defineConfig({
           href: "https://www.dolmen.tools/en/angular/angie/chat",
         },
       ],
+      components: {
+        Header: "./src/components/ui/CustomHeader.astro",
+      },
       sidebar: [
         {
           label: "Getting Started",
