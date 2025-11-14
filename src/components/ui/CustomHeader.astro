@@ -5,17 +5,19 @@ import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
 ---
 
 <nav class="flex items-center justify-between">
-<h1 class="font-[Geist] text-xl flex items-center">
-     <span class="hidden md:block">tutorials.</span>
-    <span class="text-[#02BCFF] hidden md:block">angular.</span>
-    <span class="hidden md:block">courses</span>
+<h1 class="font-[Geist] text-base md:text-xl flex items-center">
+     <span class="">tutorials.</span>
+    <span class="text-[#02BCFF]">angular.</span>
+    <span class="">courses</span>
 </h1>
 <Search />
 <div class="flex items-center gap-6">
     <div class="flex items-center gap-4">
     <SocialIcons />
     </div>
-    <hr class="h-4 w-px bg-gray-400 dark:bg-gray-500" />
-    <ThemeSelect />
-</div>
+    <hr class="hidden md:block h-4 w-px bg-gray-400 dark:bg-gray-500" />
+    <div class="hidden md:block">
+      <ThemeSelect />
+    </div>
+  </div>
 </nav>

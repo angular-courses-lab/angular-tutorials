@@ -37,6 +37,10 @@ main .content-panel {
   padding-block-end: 0 !important;
 }
 
+html {
+  --sl-nav-height: 4rem;
+}
+
 @theme {
   /*
 	Configure your Tailwind theme that will be used by Starlight.
