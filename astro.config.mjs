@@ -231,6 +231,10 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: "Congratulations",
+          link: "/congratulations",
+        },
       ],
       customCss: ["./src/styles/global.css"],
       // Set English as the default language for this site.
