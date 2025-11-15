@@ -10,7 +10,7 @@ import bootstrapImg from "../../../../../public/bootstrap_added.png";
 import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
+<NotificationCard state="objective" title="Chapter Objectives" src="/audio/add-ui-library.m4a">
   <ul className="list-disc pl-4 space-y-2">
     <li>
       <strong>Install dependencies</strong>
@@ -19,16 +19,12 @@ import NotificationCard from "../../../../components/ui/NotificationCard";
   </ul>
 </NotificationCard>
 
-<audio controls src="/audio/add-ui-library.m4a"></audio>
-
 <br />
 <br />
 
 This lesson is not specific to Angular, but adding an UI library will enhance the application's user interface rather than relying on default browser styles.
 
 Do not forget to always stop the project server before installing new dependencies. You can do this by pressing `CTRL+C` in the terminal where the server is running. The server and package installation can run independently. However, after installing certain dependencies, you might need to restart the server to apply the changes.
-
-// TODO: add before/after illustration of the final application
 
 ## What is a User Interface (UI) Library?
 
