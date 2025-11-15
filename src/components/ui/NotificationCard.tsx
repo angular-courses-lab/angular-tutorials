@@ -110,7 +110,9 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
             {title}
           </span>
         </div>
-        <audio className="hudden md:block mt-0" controls src={src}></audio>
+        {src && (
+          <audio className="hudden md:block mt-0" controls src={src}></audio>
+        )}
       </div>
 
       <div

@@ -65,16 +65,20 @@ export default defineConfig({
               link: "/task-listing/components-introduction",
             },
             {
-              label: "Create First Component",
-              link: "/task-listing/create-first-component",
+              label: "Generate an Angular Component",
+              link: "/task-listing/generate-component",
             },
             {
-              label: "Task Interface",
-              link: "/task-listing/task-interface",
+              label: "TypeScript Interface",
+              link: "/task-listing/typescript-interface",
             },
             {
-              label: "Display List",
-              link: "/task-listing/display-list",
+              label: "Signals Introduction",
+              link: "/task-listing/signals-introduction",
+            },
+            {
+              label: "Control Flow",
+              link: "/task-listing/control-flow",
             },
             {
               label: "Interpolation",
@@ -102,16 +106,16 @@ export default defineConfig({
               link: "/create-task/html-form",
             },
             {
-              label: "Form Binding",
-              link: "/create-task/form-binding",
+              label: "Reactive Forms",
+              link: "/create-task/reactive-forms",
             },
             {
               label: "Event Binding",
               link: "/create-task/event-binding",
             },
             {
-              label: "Angular Service",
-              link: "/create-task/angular-service",
+              label: "Generate an Angular Service",
+              link: "/create-task/generate-angular-service",
             },
             {
               label: "Dependency Injection",
@@ -126,8 +130,8 @@ export default defineConfig({
               link: "/create-task/inject-service-form",
             },
             {
-              label: "Programmatical Routing",
-              link: "/create-task/programmatical-routing",
+              label: "Router Navigation",
+              link: "/create-task/router-navigation",
             },
             {
               label: "Component Destruction",
@@ -197,8 +201,8 @@ export default defineConfig({
               link: "/reusable-components/delete-all-tasks",
             },
             {
-              label: "Prefill Form",
-              link: "/reusable-components/prefill-form",
+              label: "Update a Reactive Form",
+              link: "/reusable-components/update-reactive-form",
             },
           ],
         },
@@ -210,8 +214,8 @@ export default defineConfig({
               link: "/api-server/json-server-installation",
             },
             {
-              label: "Add HTTP Client",
-              link: "/api-server/add-http-client",
+              label: "Inject HttpClient",
+              link: "/api-server/inject-http-client",
             },
             {
               label: "Retrieve Tasks",

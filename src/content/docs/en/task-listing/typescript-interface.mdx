@@ -125,72 +125,9 @@ tasks: Task[] = [
 ];
 ```
 
-### Signals
-
-Angular now use a new reactive API called **Signals**. It helps updating your application whenever a change occurs.
-
-To make a property reactive with Signals, use the `signal` function and pass it the task list as a parameter.
-Its type change too: as we want to be able to update the task list, we need to use the `WritableSignal` type.
-
-```typescript ins="WritableSignal<Task[]>" ins="signal(" ins="]);"
-tasks: WritableSignal<Task[]> = signal([
-  {
-    title: "Task 1",
-    description: "Description of task 1",
-    createdAt: new Date(),
-  },
-  {
-    title: "Task 2",
-    description: "Description of task 2",
-    createdAt: new Date(),
-  },
-]);
-```
-
-##### Instructions
-
-<Steps>
-
-1. Update the `src/app/task-list.ts` file:
-
-    ```typescript ins={"Import signal APIs": 1} ins=", signal, WritableSignal" ins={"Import the task interface": 6-7} ins={"Import the uuid package": 9-10} ins={"Add the tasks variable": 18-32}
-    // task-list.ts
-
-    // Import the signal API
-    import { Component, signal, WritableSignal } from "@angular/core";
-
-
-    import { Task } from "../models/task.model";
-
-
-    import { v4 as uuid } from "uuid";
-
-    @Component({
-      selector: "app-task-list",
-      imports: [],
-      templateUrl: "./task-list.html",
-      styleUrls: ["./task-list.css"],
-    })
-    export class TaskList {
-
-      tasks: WritableSignal<Task[]> = signal([
-        {
-          id: uuid(),
-          title: "Task 1",
-          description: "Description of task 1",
-          createdAt: new Date(),
-        },
-        {
-          id: uuid(),
-          title: "Task 2",
-          description: "Description of task 2",
-          createdAt: new Date(),
-        },
-      ]);
-    }
-    ```
-
-</Steps>
+:::caution
+The variable won't be added it to your code, as we'll firstly introduce a new concept in the next step.
+:::
 
 <NotificationCard state="success" title="What you've learned">
   You have learned how to create your first TypeScript interface. This will help

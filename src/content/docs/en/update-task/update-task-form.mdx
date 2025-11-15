@@ -5,7 +5,7 @@ course: angular-20
 slug: "update-task-update-task-form"
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
 <NotificationCard state="objective" title="Chapter Objectives">
@@ -24,7 +24,6 @@ import NotificationCard from "../../../../components/ui/NotificationCard";
     </li>
   </ul>
 </NotificationCard>
-
 
 You can now access the **TaskForm** component by clicking the `Update` link.
 This path includes a dynamic value to pass the **id** of the task to update.
@@ -90,7 +89,6 @@ Use the **ActivatedRoute** service to get the **id** from the route.
 This service provides access to information about the current route.
 As you did with the **Router**, you'll inject it into the **TaskForm** component.
 
-
 ```typescript
 private route = inject(ActivatedRoute);
 
@@ -111,6 +109,16 @@ constructor() {
   this.form.patchValue(this.taskService.getTask(this.id));
 }
 ```
+
+:::caution
+This `id`variable is not a Signal, though not 'reactive'.
+It's fine for two reasons:
+
+- it gets its value at the Component creation, it does not change over time
+- it's not used in the template, so ever if it happens to change, it won't be reflected in the template
+
+If you feel like having to choose between a Signal and a regular variable is complicated, you are safe at using a Signal.
+:::
 
 <NotificationCard state="info" title="Note">
   The **TaskForm** component is used for both creating and updating a task. You
@@ -137,36 +145,31 @@ For example: `Validators.required` is a built-in Angular validator used in react
 
 In our case we won't handle the error but we will console log the error if the form is invalid in our submit.
 
-
-
 <Steps>
 
 1. Update the file `src/app/task-form/task-form.ts`.
 
    ```typescript ins={"get the id from the URL": 22-23} ins={"Retrieve the task identifier from the route": 30-34} ins={"inject ActivatedRoute": 20-21} ins={"import ActivatedRoute": 5-6} ins="[Validators.required]" ins="[Validators.minLength(1)]"
-   import {Component, inject, OnInit} from '@angular/core';
-   import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-   import {TaskService} from '../task-service';
-   import {Router} from '@angular/router';
+   import { Component, inject, OnInit } from "@angular/core";
+   import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+   import { TaskService } from "../task-service";
+   import { Router } from "@angular/router";
 
    import { ActivatedRoute } from "@angular/router";
 
    @Component({
      selector: "app-task-form",
-     imports: [
-     ReactiveFormsModule,
-     ],
+     imports: [ReactiveFormsModule],
      templateUrl: "./task-form.html",
      styleUrl: "./task-form.css",
    })
-
    export class TaskForm implements OnInit {
      private taskService = inject(TaskService);
      private router = inject(Router);
 
      private route = inject(ActivatedRoute);
 
-     private id = this.route.snapshot.paramMap.get('id');
+     private id = this.route.snapshot.paramMap.get("id");
 
      form = new FormGroup({
        title: new FormControl("", [Validators.required]),
@@ -179,16 +182,19 @@ In our case we won't handle the error but we will console log the error if the f
        }
      }
 
-      submit() {
-        if (this.form.invalid) {
-          console.log('Your form is invalid. Please check the fields.');
-          console.log('Your Form: ', this.form.value);
-          console.log('Title Errors: ', this.form.controls.title.errors);
-          console.log('Description Errors: ', this.form.controls.description.errors);
-        }
-        this.taskService.addTask(this.form.value);
-        this.router.navigate(["/"]);
-      }
+     submit() {
+       if (this.form.invalid) {
+         console.log("Your form is invalid. Please check the fields.");
+         console.log("Your Form: ", this.form.value);
+         console.log("Title Errors: ", this.form.controls.title.errors);
+         console.log(
+           "Description Errors: ",
+           this.form.controls.description.errors
+         );
+       }
+       this.taskService.addTask(this.form.value);
+       this.router.navigate(["/"]);
+     }
    }
    ```
 
