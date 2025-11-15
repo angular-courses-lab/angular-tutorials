@@ -42,6 +42,10 @@ html {
   --sl-icon-color: black;
 }
 
+:root:not([data-theme="light"]) {
+  --sl-icon-color: white;
+}
+
 @theme {
   /*
 	Configure your Tailwind theme that will be used by Starlight.
