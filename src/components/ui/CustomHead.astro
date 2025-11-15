@@ -1,0 +1,13 @@
+---
+const { head } = Astro.locals.starlightRoute;
+---
+
+{head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+<script
+  async
+  src="https://widget.kapa.ai/kapa-widget.bundle.js"
+  data-website-id="2kefMS9x.o0AJRfewwVd08vhsrXWiqZFPn37g7wsz"
+  data-project-name="angular"
+  data-project-color="#0077a2"
+  data-project-logo="https://tutorials.angular.courses/favicon.svg"
+></script>

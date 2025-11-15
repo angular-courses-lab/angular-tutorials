@@ -18,15 +18,11 @@ export default defineConfig({
           label: "GitHub",
           href: "https://github.com/angular-courses-lab/angular-tutorials",
         },
-        {
-          icon: "comment",
-          label: "AI RAG Assistant",
-          href: "https://www.dolmen.tools/en/angular/angie/chat",
-        },
       ],
       components: {
         Header: "./src/components/ui/CustomHeader.astro",
         PageTitle: "./src/components/ui/CustomPageTitle.astro",
+        Head: "./src/components/ui/CustomHead.astro",
       },
       sidebar: [
         {
