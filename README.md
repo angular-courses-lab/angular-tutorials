@@ -92,4 +92,4 @@ Tutorials are written in Markdown (`.mdx`) files located in `src/content/docs/`.
 ## note
 
 The content is a complete step of an 'angular introduction course'
-code snippets should be rendered properly
+do not include code snippets, focus on the concepts, do not dive into instructions, just describe the concepts.

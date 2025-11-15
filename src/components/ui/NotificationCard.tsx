@@ -111,17 +111,11 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
           </span>
         </div>
         {src && (
-          <audio className="hudden md:block mt-0" controls src={src}></audio>
+          <audio className="hidden md:block mt-0" controls src={src}></audio>
         )}
       </div>
 
-      <div
-        className={`${
-          state === "objective" ? "pl-8" : ""
-        } space-y-2 text-gray-700 dark:text-gray-300`}
-      >
-        {children}
-      </div>
+      <div className={`text-gray-700 dark:text-gray-300 mt-0`}>{children}</div>
     </div>
   );
 };

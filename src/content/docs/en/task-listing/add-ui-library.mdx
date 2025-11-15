@@ -10,71 +10,57 @@ import bootstrapImg from "../../../../../public/bootstrap_added.png";
 import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives" src="/audio/add-ui-library.m4a">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Install dependencies</strong>
-      <p>Set up the UI library dependencies and files</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Set up the UI library dependencies and files
+  <video src="/videos/add-ui-library.mp4" controls></video>
 </NotificationCard>
 
 <br />
 <br />
 
-This lesson is not specific to Angular, but adding an UI library will enhance the application's user interface rather than relying on default browser styles.
+This lesson is not specific to Angular, but adding an UI library will enhance the application's user interface rather than relying on default browser styles. It'll make your experience way better at checking the changes in your browser!
 
 Do not forget to always stop the project server before installing new dependencies. You can do this by pressing `CTRL+C` in the terminal where the server is running. The server and package installation can run independently. However, after installing certain dependencies, you might need to restart the server to apply the changes.
 
 ## What is a User Interface (UI) Library?
 
 A user interface (UI) library is a collection of style rules to create a consistent UI throughout the application and saves development time.
-For this course, you will add <a href="https://daisyui.com/" target="_blank">DaisyUI</a> and <a href="https://tailwindcss.com/" target="_blank">TailwindCSS</a> to your project.
+For this course, you will add <a href="https://daisyui.com/" target="_blank">DaisyUI</a> to your project.
 
 ##### Instructions
 
 <Steps>
 
-1. Run the following command in your terminal to install DaisyUI and TailwindCSS:
+1. Run the following command in your terminal to install DaisyUI:
 
    ```bash
-   npm install tailwindcss @tailwindcss/postcss postcss daisyui@latest --force
+   npm install daisyui@latest
    ```
 
-2. Create a PostCSS plugins file named `.postcssrc.json` at the root of your project (same level than package.json) and populate it with:
+2. Add the plugin to the `src/styles.css` file:
 
-   ```json
-   // .postcssrc.json
-   {
-     "plugins": {
-       "@tailwindcss/postcss": {}
-     }
-   }
-   ```
-
-3. Add these styles into the `src/styles.css` file:
-
-   ```css
+   ```css ins='@plugin "daisyui";'
    // styles.css
    @import "tailwindcss";
    @plugin "daisyui";
    ```
 
-4. Stop the server if it's still running (keyboard shortcut `CTRL+C`) and restart it with the following command:
+3. Stop the server if it's still running (keyboard shortcut `CTRL+C`) and restart it with the following command:
 
    ```bash
    ng serve
    ```
 
-5. Open the `src/app/app.html` file and replace its content once again to add a DaisyUI header:
+4. Open the `src/app/app.html` file and replace its content once again to add a DaisyUI header:
 
    ```html
+   // app.html
    <div class="navbar bg-base-100 shadow-sm">
      <a class="btn btn-ghost text-xl">Task Manager</a>
    </div>
    ```
 
-6. Check out the _small_ changes in your browser.
+5. Check out the _small_ changes in your browser.
 
    <Image
      class="shadow-xl rounded-xl"
