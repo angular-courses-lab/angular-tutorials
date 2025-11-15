@@ -87,8 +87,10 @@ It's made of 2 parts:
 - the `@for` keyword with a definition of the list to iterate over and some options
 - a block of code to execute for each item in the list
 
-```html ins="// Loop Definition" ins="// Loop Body"
-// Loop Definition @for (task of tasks; track task.id) { // Loop Body
+```html ins="<!-- Loop Definition -->" ins="<!-- Loop Body -->"
+<!-- Loop Definition -->
+@for (task of tasks; track task.id) {
+<!-- Loop Body -->
 <tr>
   <td>{{ task.title }}</td>
   <td>{{ task.createdAt }}</td>
@@ -131,7 +133,7 @@ Like in Javascript, we use `{}` to define the body of the loop.
 @for (task of tasks; track task.id) {
 <tr>
   <td>Follow the course</td>
-  <td>05/24/2024</td>
+  <td>{{ task.createdAt }}</td>
   <td></td>
 </tr>
 }

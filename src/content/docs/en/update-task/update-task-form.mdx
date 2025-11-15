@@ -31,16 +31,7 @@ This path includes a dynamic value to pass the **id** of the task to update.
 
 The **TaskForm** component form is currently empty because it was created to add a new task and is therefore initialized as an empty form.
 
-```typescript
-// task-form.ts
-task = {
-  id: "",
-  title: "",
-  description: "",
-};
-```
-
-Update it to use the form for both creating and updating a task.
+Let's update it to use the form for both creating and updating a task.
 
 ## Retrieve task information to update with TaskService
 
@@ -93,48 +84,17 @@ From this identifier, you'll get the task to fill the form.
 
 ## Get the task identifier from the route
 
-The **id** is present in the route path, you need to retrieve it in the **TaskFormComponent**.
+The **id** is present in the route path, you need to retrieve it in the **TaskForm** component.
 Use the **ActivatedRoute** service to get the **id** from the route.
 
 This service provides access to information about the current route.
-As you did with the **Router**, you'll inject it into the **TaskFormComponent** constructor.
+As you did with the **Router**, you'll inject it into the **TaskForm** component.
 
-### Hooks: Angular lifecycle
-
-Until now, you've initialized class properties during their declaration.
-
-For example, you initialized the **task** property with an empty object:
 
 ```typescript
-task = {
-  id: "",
-  title: "",
-  description: "",
-};
-```
+private route = inject(ActivatedRoute);
 
-You can't use such logic to initialize the **task** property with the task to update because this `id` isn't yet available when the Component class is created.
-
-**Why?**
-
-From creation to destruction, a component goes through several stages.
-When creating the Component class, route information is not yet available.
-
-To handle such a case, Angular provides lifecycle hooks.
-Lifecycle hooks are methods that Angular calls in components and directives when it creates, changes, and destroys them.
-
-One of the most used lifecycle hooks is **ngOnInit**, which is already present in all created components of the application.
-This hook is called right after Angular has instantiated the Component class.
-And at this point, the component is able to read route information.
-
-Inside this hook, start by retrieving the route identifier and save it into a new variable called `id`.
-
-```typescript
-private id: string | null = null;
-
-ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
-}
+private id = this.route.snapshot.paramMap.get('id');
 ```
 
 **route.snapshot** is a static image of route information and exposes a **paramMap** property.
@@ -145,32 +105,30 @@ The **get** method of the **paramMap** object allows us to retrieve the value of
 Then, you'll retrieve the task to update from the **TaskService** based on the **id** available in the route.
 
 ```typescript
-private id: string | null = null;
+private id = this.route.snapshot.paramMap.get('id');
 
-ngOnInit() {
-      this.id = this.route.snapshot.paramMap.get('id');
-      this.form.patchValue(this.taskService.getTask(this.id));
-  }
+constructor() {
+  this.form.patchValue(this.taskService.getTask(this.id));
+}
 ```
 
 <NotificationCard state="info" title="Note">
-  The **TaskFormComponent** is used for both creating and updating a task. You
+  The **TaskForm** component is used for both creating and updating a task. You
   should test if the **id** is available in the route before retrieving the task
   to update. This will prevent an error when the **id** is not available in the
   route.
 </NotificationCard>
 
 ```typescript
-private id: string | null = null;
+private id = this.route.snapshot.paramMap.get('id');
 
-ngOnInit() {
-      this.id = this.route.snapshot.paramMap.get('id');
-
-      if (this.id) {
-          this.form.patchValue(this.taskService.getTask(this.id));
-      }
+constructor() {
+  if (this.id) {
+    this.form.patchValue(this.taskService.getTask(this.id));
+  }
 }
 ```
+
 ## Form validation
 
 Form validation is the process of checking user input in a form to make sure it is complete and correct before allowing the form to be submitted. For example, you can require certain fields to be filled in or check that an email address is in the right format. Angular provides built-in tools to help you validate form input and display useful error messages to users
@@ -185,7 +143,7 @@ In our case we won't handle the error but we will console log the error if the f
 
 1. Update the file `src/app/task-form/task-form.ts`.
 
-   ```typescript ins={"add lifecycle onInit and get the id from the URL": 29-31} ins={"Retrieve the task identifier from the route": 32-36} ins={"inject ActivatedRoute": 22-23} ins={"import ActivatedRoute": 5-6} ins="implements OnInit" ins=" OnInit " ins={"create a variable for id as we need to reuse it": 24-25} ins="[Validators.required]" ins="[Validators.minLength(1)]"
+   ```typescript ins={"get the id from the URL": 22-23} ins={"Retrieve the task identifier from the route": 30-34} ins={"inject ActivatedRoute": 20-21} ins={"import ActivatedRoute": 5-6} ins="[Validators.required]" ins="[Validators.minLength(1)]"
    import {Component, inject, OnInit} from '@angular/core';
    import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
    import {TaskService} from '../task-service';
@@ -208,16 +166,14 @@ In our case we won't handle the error but we will console log the error if the f
 
      private route = inject(ActivatedRoute);
 
-     private id: string | null = null;
+     private id = this.route.snapshot.paramMap.get('id');
 
      form = new FormGroup({
        title: new FormControl("", [Validators.required]),
        description: new FormControl("", [Validators.minLength(1)]),
      });
 
-     ngOnInit() {
-       this.id = this.route.snapshot.paramMap.get("id");
-
+     constructor() {
        if (this.id) {
          this.form.patchValue(this.taskService.getTask(this.id));
        }
@@ -233,8 +189,6 @@ In our case we won't handle the error but we will console log the error if the f
         this.taskService.addTask(this.form.value);
         this.router.navigate(["/"]);
       }
-
-
    }
    ```
 
@@ -248,7 +202,7 @@ In our case we won't handle the error but we will console log the error if the f
 </Steps>
 
 <NotificationCard state="success" title="What you've learned">
-  In this chapter, you learned how to update **TaskFormComponent** to fill the
+  In this chapter, you learned how to update **TaskForm** component to fill the
   form with the task to update. You learned how to retrieve the task from
   **TaskService** based on the **id** available in the route.
 </NotificationCard>

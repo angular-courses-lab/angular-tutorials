@@ -94,8 +94,8 @@ Let's subscribe to the observable using the `subscribe` function.
         @Component({
           selector: 'app-task-form',
           imports: [
-          ReactiveFormsModule,
-          AlertBanner
+            ReactiveFormsModule,
+            AlertBanner
           ],
           templateUrl: './task-form.html',
           styleUrls: ['./task-form.css']
@@ -104,21 +104,19 @@ Let's subscribe to the observable using the `subscribe` function.
           private taskService = inject(TaskService);
           private router = inject(Router);
           private route = inject(ActivatedRoute);
-          private id: string | null = null;
+          private id = this.route.snapshot.paramMap.get('id');
 
           form = new FormGroup({
             title: new FormControl('', [Validators.required]),
             description: new FormControl('', [Validators.minLength(1)])
           });
 
-          ngOnInit() {
-            this.id = this.route.snapshot.paramMap.get("id");
-
-            if (this.id ) {
-             this.form.patchValue(this.taskService.getTask(this.id ));
+          constructor() {
+            if (this.id) {
+              this.form.patchValue(this.taskService.getTask(this.id));
             }
           }
-
+          
         submit() {
             if (this.id) {
                 const existingTask = this.taskService.getTask(id);
@@ -195,13 +193,11 @@ Use this callback function to navigate to the **"/"** route.
 
 1.  Update the `src/app/task-form/task-form.ts` file.
 
-        ```typescript ins={"Update the form submission function": 11-14}
+        ```typescript ins={"Update the form submission function": 9-12}
 
           submit() {
-              const id = this.route.snapshot.paramMap.get('id');
-
-                if (id) {
-                    const existingTask = this.taskService.getTask(id);
+              if (this.id) {
+                    const existingTask = this.taskService.getTask(this.id);
                     this.taskService.updateTask({
                         ...existingTask,
                         ...this.task

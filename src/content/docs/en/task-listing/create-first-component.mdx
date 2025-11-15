@@ -199,7 +199,7 @@ export class App {}
 
 1. Update the `template`property of the `app.ts` file as follows:
 
-   ```ts ins={"import the TaskList component": 5-6} ins={"Add the TaskList component to the App component imports": 10-11}
+   ```ts ins={"import the TaskList component": 4-5} ins={"Add the TaskList component to the App component imports": 9-10}
    // app.ts
    import { Component } from "@angular/core";
    import { RouterOutlet } from "@angular/router";
@@ -220,7 +220,7 @@ export class App {}
 
 2. Update the `app.html` file to display the `task-list` component:
 
-   ```html ins={"Add the component selector, and the <main> tag for proper HTML semantics and CSS management": 4-7}
+   ```html ins={"Add the component selector, and the <main> tag (semantic/styles)": 4-7}
    <div class="navbar bg-base-100 shadow-sm">
      <a class="btn btn-ghost text-xl">Task Manager</a>
    </div>

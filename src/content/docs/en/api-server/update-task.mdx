@@ -77,9 +77,7 @@ Like the previously changed functions to communicate with the API, this function
 While the function name doesn't change, you'll now need to **subscribe** to get its value.
 
 ```typescript
-ngOnInit() {
-   this.id = this.route.snapshot.paramMap.get('id');
-
+constructor() {
     if (this.id) {
       this.taskService.getTask(this.id).subscribe(task => {
         this.form.patchValue(task);
@@ -92,19 +90,15 @@ ngOnInit() {
 
 1.  Update the **task-form.ts** file.
 
-        ```typescript ins={"Replace the getTask function": 5-7}
+        ```typescript ins={"Replace the getTask function": 3-6}
+            constructor() {
+              if (this.id) {
 
-            ngOnInit() {
-                this.id = this.route.snapshot.paramMap.get('id');
-
-                if (this.id) {
-
-                    this.taskService.getTask(this.id).subscribe(task => {
-                        this.form.patchValue(task);
-                    });
-                }
+                this.taskService.getTask(this.id).subscribe(task => {
+                  this.form.patchValue(task);
+                });
+              }
             }
-
         ```
 
 </Steps>
@@ -141,10 +135,9 @@ Handle it by modifying the **submit** function:
 
 1. Update the **task-form.ts** file.
 
-   ```typescript ins={"Refactor the submit function": 3-12}
+   ```typescript ins={"Refactor the submit function": 2-11}
 
      submit() {
-       this.id = this.route.snapshot.paramMap.get("id");
 
        const taskObservable = this.id
          ? this.taskService.updateTask(this.form.value, this.id)
