@@ -26,6 +26,7 @@ export default defineConfig({
       ],
       components: {
         Header: "./src/components/ui/CustomHeader.astro",
+        PageTitle: "./src/components/ui/CustomPageTitle.astro",
       },
       sidebar: [
         {
