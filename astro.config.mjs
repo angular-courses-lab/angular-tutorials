@@ -66,6 +66,10 @@ export default defineConfig({
               link: "/task-listing/generate-component",
             },
             {
+              label: "Display the Component",
+              link: "/task-listing/display-component",
+            },
+            {
               label: "TypeScript Interface",
               link: "/task-listing/typescript-interface",
             },

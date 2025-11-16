@@ -1,20 +1,15 @@
 ---
-title: Define a Task Interface
-description: Learn how to define a Task interface in Angular.
+title: Introduction to Signals
+description: Learn how to use Signals to make your application reactive.
 course: angular-20
-slug: "task-listing-task-interface"
+slug: "task-listing-signals-introduction"
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Introduction to Signals</strong>
-      <p>Learn how to use Signals to make your application reactive.</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Learn how to use Signals to make your application reactive.
 </NotificationCard>
 
 ### Signals
@@ -45,42 +40,39 @@ tasks: WritableSignal<Task[]> = signal([
 
 1. Update the `src/app/task-list.ts` file:
 
-    ```typescript ins={"Import signal APIs": 1} ins=", signal, WritableSignal" ins={"Import the task interface": 6-7} ins={"Import the uuid package": 9-10} ins={"Add the tasks variable": 18-32}
-    // task-list.ts
+   ```typescript ins={"Import signal APIs": 1} ins=", signal, WritableSignal" ins={"Import the task interface": 6-7} ins={"Import the uuid package": 9-10} ins={"Add the tasks variable": 18-32}
+   // task-list.ts
 
-    // Import the signal API
-    import { Component, signal, WritableSignal } from "@angular/core";
+   // Import the signal API
+   import { Component, signal, WritableSignal } from "@angular/core";
 
+   import { Task } from "../models/task.model";
 
-    import { Task } from "../models/task.model";
+   import { v4 as uuid } from "uuid";
 
-
-    import { v4 as uuid } from "uuid";
-
-    @Component({
-      selector: "app-task-list",
-      imports: [],
-      templateUrl: "./task-list.html",
-      styleUrls: ["./task-list.css"],
-    })
-    export class TaskList {
-
-      tasks: WritableSignal<Task[]> = signal([
-        {
-          id: uuid(),
-          title: "Task 1",
-          description: "Description of task 1",
-          createdAt: new Date(),
-        },
-        {
-          id: uuid(),
-          title: "Task 2",
-          description: "Description of task 2",
-          createdAt: new Date(),
-        },
-      ]);
-    }
-    ```
+   @Component({
+     selector: "app-task-list",
+     imports: [],
+     templateUrl: "./task-list.html",
+     styleUrls: ["./task-list.css"],
+   })
+   export class TaskList {
+     tasks: WritableSignal<Task[]> = signal([
+       {
+         id: uuid(),
+         title: "Task 1",
+         description: "Description of task 1",
+         createdAt: new Date(),
+       },
+       {
+         id: uuid(),
+         title: "Task 2",
+         description: "Description of task 2",
+         createdAt: new Date(),
+       },
+     ]);
+   }
+   ```
 
 </Steps>
 
@@ -89,7 +81,7 @@ tasks: WritableSignal<Task[]> = signal([
 Signals are meant to be used for reactivity purposes. If this variable will be static for the first part of the tutorial, it'll accept changes later on and we already want it to be reactive.
 
 Except if you use some old project, your application should use Angular 21 or higher.
-This version introduces what we call **zoneless change detection**. The *change detection* is the solution to detect changes in your application to update your templates accordingly.
+This version introduces what we call **zoneless change detection**. The _change detection_ is the solution to detect changes in your application to update your templates accordingly.
 With zoneless change detection, the change detection is triggered automatically when a signal is updated, while it's not for other variables.
 
 <NotificationCard state="success" title="What you've learned">
