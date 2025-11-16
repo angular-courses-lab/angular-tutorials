@@ -1,0 +1,57 @@
+---
+title: Update a Reactive Form
+description: Learn how to update a reactive form
+course: angular-20
+slug: "reusable-components-update-reactive-form"
+---
+
+import { Steps } from "@astrojs/starlight/components";
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+The point of this step is to introduce you with the solutions to update the value of a reactive form.
+A reactive form is a set of classes you use, in our situation, initialized as so:
+
+```typescript
+form = new FormGroup({
+  title: new FormControl(""),
+  description: new FormControl(""),
+});
+```
+
+To update it, you can't juste set it a value directly, like `form = {title: "New Title", description: "New Description"}` because it's not a regular object.
+
+The Reactive Forms API provides you with two methods to update the value of a reactive form:
+
+- `setValue()` sets all form control values at once and requires you to provide values for every form control - if you miss any, it throws an error.
+
+- `patchValue()` updates some or all form controls and ignores missing properties - it only updates the controls that match.
+
+:::note
+Use `setValue()` to completely replace all form values, use `patchValue()` for partial updates.
+:::
+
+##### Instructions
+
+<Steps>
+
+1. Update the `TaskForm` class:
+
+   ```typescript ins={"Add the preFillForm function": 3-9}
+   // task.form.ts
+
+
+   preFillForm() {
+       this.form.setValue({
+         title: 'Generated Task',
+         description: 'Generated Description',
+       });
+   }
+   ```
+
+</Steps>
+
+<NotificationCard state="warning" title="Note">
+
+With `setValue()` if you miss any, it throws an error. Use it when you want to completely replace all form values.
+
+</NotificationCard>
