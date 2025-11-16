@@ -5,11 +5,11 @@ course: angular-20
 slug: "api-server-json-server-installation"
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
 <NotificationCard state="objective" title="Chapter Objective">
-  Learn how to install and configure JSON Server for your Angular application.
+  Install and configure JSON Server for your Angular application.
 </NotificationCard>
 
 ## What is JSON server?
@@ -55,9 +55,9 @@ Let's install it and create a fake database.
    ```json ins={"Add start-server script": 3-4}
    {
      "scripts": {
-
+      
        "start-server": "json-server --watch db.json"
-     // other scripts...
+       // other scripts...
      }
    }
    ```

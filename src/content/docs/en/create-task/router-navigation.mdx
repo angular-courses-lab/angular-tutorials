@@ -5,24 +5,11 @@ course: angular-20
 slug: "create-task-router-navigation"
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Understand programmatic navigation</strong>
-      <p>Learn how to trigger navigation from component code.</p>
-    </li>
-    <li>
-      <strong>Use Router service</strong>
-      <p>Master the Angular Router service for programmatic navigation.</p>
-    </li>
-    <li>
-      <strong>Handle navigation events</strong>
-      <p>Learn how to respond to navigation events in your components.</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Trigger the navigation from a component.
 </NotificationCard>
 
 In the last step, you tested the form with this scenario:
@@ -61,9 +48,9 @@ This service allows you to retrieve information about the current route and enab
      // ...
    })
    export class TaskForm {
-    private taskService = inject(TaskService);
+     private taskService = inject(TaskService);
 
-    private router = inject(Router);
+     private router = inject(Router);
 
      task = {
        title: "",

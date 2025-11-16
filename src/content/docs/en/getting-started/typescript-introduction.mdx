@@ -7,27 +7,8 @@ slug: "typescript-introduction"
 
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Understand TypeScript basics</strong>
-      <p>
-        Learn the fundamental concepts of TypeScript and its relationship with
-        JavaScript.
-      </p>
-    </li>
-    <li>
-      <strong>Master TypeScript types</strong>
-      <p>
-        Learn how to use TypeScript's type system effectively in your Angular
-        applications.
-      </p>
-    </li>
-    <li>
-      <strong>Apply TypeScript in Angular</strong>
-      <p>Understand how TypeScript is used in Angular and its benefits.</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Learn to create your first TypeScript model.
 </NotificationCard>
 
 ## What is TypeScript?
@@ -90,6 +71,22 @@ The TypeScript creation format is composed as follows:
 
 ```typescript
 <property>: <type> = <value>;
+```
+
+For example:
+
+```typescript
+const id: string = "123";
+
+const isStudent: boolean = true;
+
+const car: Car = {
+  make: "Toyota",
+  model: "Corolla",
+  year: 2020,
+};
+
+const choices: string[] = ["apple", "banana", "cherry"];
 ```
 
 `[]` is used to define an array, as in `tasks: Task[]`.
