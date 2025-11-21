@@ -5,7 +5,7 @@ course: angular-20
 slug: "task-listing-task-interface"
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
 <NotificationCard state="objective" title="Chapter Objective">
@@ -34,21 +34,20 @@ Each task has 4 properties:
 
 1. Create a new folder called **models** in the `src/app` folder to store all TypeScript interfaces for the application.
 
-    ```diff
-    src
-    └─ app
-    +    └─ models
-    ```
-
+   ```diff
+   src
+   └─ app
+   +    └─ models
+   ```
 
 1. Create a new file called `task.model.ts` in this new folder.
 
-    ```diff
-    src
-    └─ app
-        └─ models
-    +         └─ task.model.ts
-    ```
+   ```diff
+   src
+   └─ app
+       └─ models
+   +         └─ task.model.ts
+   ```
 
 1. Add the following code to the file:
 
@@ -75,9 +74,9 @@ For this, you will use the **uuid** library. This library generates unique ident
 
 1. Install the **uuid** library by running the following command in the terminal:
 
-    ```bash
-    npm install uuid && npm i --save-dev @types/uuid
-    ```
+   ```bash
+   npm install uuid && npm i --save-dev @types/uuid
+   ```
 
 </Steps>
 
@@ -120,9 +119,10 @@ tasks: Task[] = [
 ];
 ```
 
-:::caution
-The variable won't be added it to your code, as we'll firstly introduce a new concept in the next step.
-:::
+<NotificationCard state="warning" title="Warning">
+  The variable won't be added it to your code, as we'll firstly introduce a new
+  concept in the next step.
+</NotificationCard>
 
 <NotificationCard state="success" title="What you've learned">
   You have learned how to create your first TypeScript interface. This will help
