@@ -87,3 +87,9 @@ The project uses [Tailwind CSS](https://starlight.astro.build/guides/css-and-tai
 ## 📖 Content Management
 
 Tutorials are written in Markdown (`.mdx`) files located in `src/content/docs/`. Each file is automatically exposed as a route based on its file name. Images can be added to `src/assets/` and embedded in Markdown with relative links.
+
+
+## note
+
+The content is a complete step of an 'angular introduction course'
+do not include code snippets, focus on the concepts, do not dive into instructions, just describe the concepts.

@@ -79,7 +79,7 @@ Let's add a new function to update an existing task in the list.
 
 ## Update the TaskFormComponent
 
-The **TaskFormComponent** is currently used to add a new task to the list.
+The **TaskForm** component is currently used to add a new task to the list.
 
 Handle the update action through the form **without creating a new task**.
 To do this, keep the same **submit** function but update it to use the **updateTask** function from the **TaskService**.
@@ -139,16 +139,14 @@ In both cases, return to the task list.
      private taskService = inject(TaskService);
      private router = inject(Router);
      private route = inject(ActivatedRoute);
-     private id: string | null = null;
+     private id = this.route.snapshot.paramMap.get('id');
 
      form = new FormGroup({
        title: new FormControl('', [Validators.required]),
        description: new FormControl('', [Validators.required])
      });
 
-     ngOnInit() {
-       this.id = this.route.snapshot.paramMap.get("id");
-
+     constructor() {
        if (this.id) {
          this.form.patchValue(this.taskService.getTask(this.id));
        }
@@ -193,6 +191,6 @@ In both cases, return to the task list.
 </Steps>
 
 <NotificationCard state="success" title="What you've learned">
-  In this chapter, you learned how to update the **TaskFormComponent** to handle
+  In this chapter, you learned how to update the **TaskForm** component to handle
   both updating and creating tasks.
 </NotificationCard>

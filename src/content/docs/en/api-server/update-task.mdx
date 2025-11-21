@@ -8,13 +8,8 @@ slug: "api-server-update-task"
 import { Steps } from '@astrojs/starlight/components';
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Update a task using HTTP Client</strong>
-      <p>Update a task in the list by making an API call to the mock server.</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Update a task in the list by making an API call to the mock server.
 </NotificationCard>
 
 In addition to targeting task updates rather than creation, this lesson will be quite similar to the previous one:
@@ -77,9 +72,7 @@ Like the previously changed functions to communicate with the API, this function
 While the function name doesn't change, you'll now need to **subscribe** to get its value.
 
 ```typescript
-ngOnInit() {
-   this.id = this.route.snapshot.paramMap.get('id');
-
+constructor() {
     if (this.id) {
       this.taskService.getTask(this.id).subscribe(task => {
         this.form.patchValue(task);
@@ -92,19 +85,15 @@ ngOnInit() {
 
 1.  Update the **task-form.ts** file.
 
-        ```typescript ins={"Replace the getTask function": 5-7}
+        ```typescript ins={"Replace the getTask function": 3-6}
+            constructor() {
+              if (this.id) {
 
-            ngOnInit() {
-                this.id = this.route.snapshot.paramMap.get('id');
-
-                if (this.id) {
-
-                    this.taskService.getTask(this.id).subscribe(task => {
-                        this.form.patchValue(task);
-                    });
-                }
+                this.taskService.getTask(this.id).subscribe(task => {
+                  this.form.patchValue(task);
+                });
+              }
             }
-
         ```
 
 </Steps>
@@ -141,10 +130,9 @@ Handle it by modifying the **submit** function:
 
 1. Update the **task-form.ts** file.
 
-   ```typescript ins={"Refactor the submit function": 3-12}
+   ```typescript ins={"Refactor the submit function": 2-11}
 
      submit() {
-       this.id = this.route.snapshot.paramMap.get("id");
 
        const taskObservable = this.id
          ? this.taskService.updateTask(this.form.value, this.id)

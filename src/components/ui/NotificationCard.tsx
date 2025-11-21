@@ -20,12 +20,14 @@ interface NotificationCardProps {
   state: NotificationState;
   title: string;
   children: React.ReactNode;
+  src: string;
 }
 
 const NotificationCard: React.FC<NotificationCardProps> = ({
   state,
   title,
   children,
+  src,
 }) => {
   const stateConfig = {
     experimental: {
@@ -95,20 +97,25 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
 
   return (
     <div
-      className={`!mt-12 py-4 px-6 ${config.bg} rounded-lg border ${config.border} relative`}
+      className={`${state === "objective" ? "" : "!mt-12"} py-4 px-6 ${
+        config.bg
+      } rounded-lg border ${config.border} relative`}
     >
-      <div className="flex items-center">
-        <Icon className={`w-5 h-5 ${config.iconColor}`} />
-        <span
-          className={`text-lg font-medium ${config.titleText} px-4 py-0.5 rounded-md`}
-        >
-          {title}
-        </span>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Icon className={`w-6 h-6 ${config.iconColor}`} />
+          <span
+            className={`text-lg font-bold ${config.titleText} px-4 py-0.5 rounded-md`}
+          >
+            {title}
+          </span>
+        </div>
+        {src && (
+          <audio className="hidden md:block mt-0" controls src={src}></audio>
+        )}
       </div>
 
-      <div className="space-y-2 text-gray-700 dark:text-gray-300">
-        {children}
-      </div>
+      <div className={`text-gray-700 dark:text-gray-300 mt-0`}>{children}</div>
     </div>
   );
 };

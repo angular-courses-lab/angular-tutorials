@@ -8,8 +8,6 @@ slug: "reusable-components-component-input"
 import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-# Component inputs
-
 The banner displays a message but not only it's a placeholder unrelated to the application; we want the message to be different based on where it's used:
 
 - in the `TaskList` component, we want to display a message proposing to delete all existing tasks
@@ -32,7 +30,7 @@ We'll firstly define these properties in the `AlertBanner` class, then pass the 
 
 1. Update the `AlertBanner` class:
 
-   ```typescript ins="input "
+   ```typescript ins="input"
    // alert-banner.ts
    import { Component, input } from "@angular/core";
 
@@ -43,7 +41,7 @@ We'll firstly define these properties in the `AlertBanner` class, then pass the 
    <NotificationCard state="info" title="Note">
      The input is marked as required: it'll throw an error if the parent
      component does not provide a value for it. In some situations, inputs are
-     just optional.
+     just optional, define them with `input<string>()` instead of `input.required<string>()`.
    </NotificationCard>
 
 2. Update the template of `alert-banner.html` file:

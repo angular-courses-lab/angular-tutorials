@@ -11,23 +11,8 @@ import headerImg from "../../../../../public/getting-started_header.png";
 import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Generate an Angular application</strong>
-      <p>
-        Learn how to use the Angular CLI to generate an Angular application.
-      </p>
-    </li>
-    <li>
-      <strong>Run the application</strong>
-      <p>Launch the application locally and view the default base page.</p>
-    </li>
-    <li>
-      <strong>Understand hot reloading</strong>
-      <p>Understand how hot reloading works in Angular applications.</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Learn how to use the Angular CLI to generate an Angular application.
 </NotificationCard>
 
 ## Create the project
@@ -55,7 +40,7 @@ Angular provides a Command Line Interface (CLI) to generate a new Angular applic
 2. Open a terminal and run the following command to create an Angular application:
 
    ```bash
-   ng new angular-introduction-course --style=css --ssr=false --skip-tests=true --zoneless=true
+   ng new angular-introduction-course --style=tailwind --ssr=false --skip-tests=true
    ```
 
    <NotificationCard state="info" title="Note">
@@ -105,42 +90,41 @@ Hot reloading is a feature that allows you to see the changes you make to your c
 
 1. Locate and open the `app.html` file in the `src/app` directory.
 
-      ```bash ins="app.html"
-      src
-      └─ app
-          └─ app.html
-      ```
+   ```bash ins="app.html"
+   src
+   └─ app
+       └─ app.html
+   ```
 
 2. Locate the placeholder (which is wrapped in HTML comment tags) in the `app.html` file and replace the template content with following:
 
-      ```html ins="app.html"
-      // app.html
-        <h1>Welcome to {{title()}}!</h1>
-      ```
+   ```html ins="app.html"
+   // app.html
+   <h1>Welcome to {{title()}}!</h1>
+   ```
 
 3. In the file `app.ts`, locate the `imports` array and remove the `RouterOutlet` import:
 
-      ```diff lang="ts"
-      // app.ts
-      - import { RouterOutlet } from '@angular/router';
-      ```
+   ```diff lang="ts"
+   // app.ts
+   - import { RouterOutlet } from '@angular/router';
+   ```
 
-      ```ts del="RouterOutlet"
-      // app.ts
-      @Component({
-      // ...
-      imports: [RouterOutlet],
-      })
-      export class App {
-      // ...
-      }
-      ```
+   ```ts del="RouterOutlet"
+   // app.ts
+   @Component({
+     // ...
+     imports: [RouterOutlet],
+   })
+   export class App {
+     // ...
+   }
+   ```
 
 4. Return to your browser to see the following page:
 
-      ```
-      Task Manager
-      ```
+   ```
+   Task Manager
+   ```
 
 </Steps>
-

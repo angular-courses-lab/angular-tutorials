@@ -8,16 +8,8 @@ slug: "api-server-retrieve-tasks"
 import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Retrieve tasks using HTTP Client</strong>
-      <p>
-        Learn how to retrieve tasks from the list using HTTP Client in an
-        Angular application.
-      </p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Retrieve tasks from the list using HTTP Client in an Angular application.
 </NotificationCard>
 
 ## Update TaskService
@@ -122,7 +114,7 @@ To differentiate an observable value, the Angular community commonly uses the `$
    export class TaskList {
      private taskService = inject(TaskService);
 
-     tasks: Task[] = this.taskService.tasks;
+     tasks = this.taskService.tasks;
 
      tasks$ = this.taskService.getTasks();
    }
@@ -181,54 +173,6 @@ Here its role will be to subscribe to the observable and return the list of task
    ```
 
 </Steps>
-
-### Alternative
-
-The alternative to using the **async** pipe is to subscribe to the observable in the component.
-
-This is done by calling the **subscribe** function on the observable and passing a callback function as a parameter.
-This callback will be made once the data is available.
-
-This subscription will be used in the **ngOnInit** function of the **TaskListComponent** class.
-
-<Steps>
-
-1. Update the `src/app/task-list/task-list.ts` file.
-
-   ```typescript ins={"Subscribe to the observable": 14-17}
-   import { Component, OnInit } from "@angular/core";
-   import { TaskService } from "../task-service";
-   import { Task } from "../task.model";
-
-   @Component({
-     selector: "app-task-list",
-     templateUrl: "./task-list.html",
-     styleUrls: ["./task-list.css"],
-   })
-   export class TaskList implements OnInit {
-     private taskService = inject(TaskService);
-
-     tasks: Task[] = this.taskService.tasks;
-
-     ngOnInit() {
-       this.taskService.getTasks().subscribe((tasks) => (this.tasks = tasks));
-     }
-   }
-   ```
-
-</Steps>
-
-### Pitfalls
-
-Although subscribing to the observable in the component is a valid solution, it lacks some optimizations provided by the **async** pipe.
-It also requires more code for the same result.
-
-Indeed, when you use the subscription to the observable in the component, you need to think about **unsubscribing**.
-We won't cover this action for now. You can discuss with your mentor for more details.
-
-**Zoneless Change Detection**:
-
-Traditional Angular applications use **Zone.js** to automatically detect when changes occur (like user clicks, HTTP responses, or timers) and update the UI accordingly. **Zoneless change detection** is a modern approach but not stable for the moment where Angular doesn't automatically track these changes. Instead, developers have more control over when the UI updates, typically using signals or explicit change detection triggers. This can lead to better performance and more predictable behavior, but requires a slightly different development approach.
 
 <NotificationCard state="success" title="What you've learned">
   In this chapter, you've learned one of Angular's key features: how to query
