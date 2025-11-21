@@ -2,6 +2,7 @@
 import Search from "@astrojs/starlight/components/Search.astro";
 import SocialIcons from "@astrojs/starlight/components/SocialIcons.astro";
 import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
+import Analytics from '@vercel/analytics/astro'
 ---
 
 <nav class="flex items-center justify-between">
@@ -23,3 +24,4 @@ import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
     </div>
   </div>
 </nav>
+<Analytics />
