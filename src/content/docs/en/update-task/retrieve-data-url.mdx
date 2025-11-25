@@ -1,0 +1,173 @@
+---
+title: Retrieve data from the URL
+description: Learn how to retrieve data from the URL in Angular
+course: angular-20
+slug: "update-task-retrieve-data-url"
+---
+
+import { Steps } from "@astrojs/starlight/components";
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objective">
+  Retrieve data from the URL in Angular
+</NotificationCard>
+
+You can now access the **TaskForm** component by clicking the `Update` link.
+This path includes a dynamic value to pass the **id** of the task to update.
+
+The **TaskForm** component form is currently empty because it was created to add a new task and is therefore initialized as an empty form.
+
+Let's update it to use the form for both creating and updating a task.
+
+## Retrieve task information to update with TaskService
+
+Before getting the route identifier, let's prepare the logic to identify the task to update.
+Since the task list is stored in **TaskService**, you'll add a new function to retrieve a task based on its **id**.
+From this identifier, you'll get the task to fill the form.
+
+<Steps>
+
+1. Update the file `src/app/task-service.ts`.
+
+   ```typescript ins={"Add a function to retrieve a task by its identifier": 30-33}
+    // task-service.ts
+    import { Injectable, signal, WritableSignal } from "@angular/core";
+    import { Task } from "./task.model";
+
+    @Injectable({
+      providedIn: "root",
+    })
+    export class TaskService {
+      tasks: WritableSignal<Task[]> = signal([
+        {
+          title: "Task 1",
+          description: "Description of task 1",
+          createdAt: new Date(),
+        },
+        {
+          title: "Task 2",
+          description: "Description of task 2",
+          createdAt: new Date(),
+        },
+      ]);
+
+      addTask(task: Task): void {
+        this.tasks.update((tasks) => {
+          return [...tasks, {
+          ...task,
+          createdAt: new Date(),
+        });
+        });
+      }
+
+      getTask(id: string): Task {
+        return this.tasks().find((task) => task.id === id)!;
+      }
+    }
+   ```
+
+</Steps>
+
+## Get the task identifier from the route
+
+The **id** is present in the route path, you need to retrieve it in the **TaskForm** component.
+Use the **ActivatedRoute** service to get the **id** from the route.
+
+This service provides access to information about the current route.
+As you did with the **Router**, you'll inject it into the **TaskForm** component.
+
+```typescript
+private route = inject(ActivatedRoute);
+
+private id = this.route.snapshot.paramMap.get('id');
+```
+
+**route.snapshot** is a static image of route information and exposes a **paramMap** property.
+
+This **paramMap** is a map of required and optional parameters specific to the route, including the dynamic route path parameters.
+The **get** method of the **paramMap** object allows us to retrieve the value of a parameter based on the name you used in the route path definition: **id**.
+
+Then, you'll retrieve the task to update from the **TaskService** based on the **id** available in the route.
+
+```typescript
+private id = this.route.snapshot.paramMap.get('id');
+
+constructor() {
+  this.form.patchValue(this.taskService.getTask(this.id));
+}
+```
+
+:::caution
+This `id`variable is not a Signal, though not 'reactive'.
+It's fine for two reasons:
+
+- it gets its value at the Component creation, it does not change over time
+- it's not used in the template, so ever if it happens to change, it won't be reflected in the template
+
+If you feel like having to choose between a Signal and a regular variable is complicated, you are safe at using a Signal.
+:::
+
+<NotificationCard state="info" title="Note">
+  The **TaskForm** component is used for both creating and updating a task. You
+  should test if the **id** is available in the route before retrieving the task
+  to update. This will prevent an error when the **id** is not available in the
+  route.
+</NotificationCard>
+
+```typescript
+private id = this.route.snapshot.paramMap.get('id');
+
+constructor() {
+  if (this.id) {
+    this.form.patchValue(this.taskService.getTask(this.id));
+  }
+}
+```
+
+<Steps>
+
+1. Update the file `src/app/task-form/task-form.ts`.
+
+   ```typescript ins={"get the id from the URL": 19-20} ins={"Patch the form value": 28-31} ins={"inject ActivatedRoute": 17-18} ins={"import ActivatedRoute": 5-6}
+   import { Component, inject, OnInit } from "@angular/core";
+   import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+   import { TaskService } from "../task-service";
+   import { Router } from "@angular/router";
+
+   import { ActivatedRoute } from "@angular/router";
+
+   @Component({
+     selector: "app-task-form",
+     imports: [ReactiveFormsModule],
+     templateUrl: "./task-form.html",
+     styleUrl: "./task-form.css",
+   })
+   export class TaskForm implements OnInit {
+     private taskService = inject(TaskService);
+     private router = inject(Router);
+
+     private route = inject(ActivatedRoute);
+
+     private id = this.route.snapshot.paramMap.get("id");
+
+     form = new FormGroup({
+       title: new FormControl("", [Validators.required]),
+       description: new FormControl("", [Validators.minLength(1)]),
+     });
+
+     constructor() {
+
+       if (this.id) {
+         this.form.patchValue(this.taskService.getTask(this.id));
+       }
+     }
+   }
+   ```
+
+</Steps>
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you learned how to update **TaskForm** component to fill the
+  form with the task to update. You learned how to retrieve the task from
+  **TaskService** based on the **id** available in the route.
+</NotificationCard>

@@ -103,6 +103,18 @@ export default defineConfig({
               link: "/create-task/routing-introduction",
             },
             {
+              label: "Add router outlet",
+              link: "/create-task/add-router-outlet",
+            },
+            {
+              label: "Define routes",
+              link: "/create-task/define-routes",
+            },
+            {
+              label: "Add router links",
+              link: "/create-task/add-routerlinks",
+            },
+            {
               label: "HTML Form",
               link: "/create-task/html-form",
             },
@@ -123,8 +135,8 @@ export default defineConfig({
               link: "/create-task/dependency-injection",
             },
             {
-              label: "Add Task Service",
-              link: "/create-task/add-task-service",
+              label: "First Service Function",
+              link: "/create-task/add-task-function",
             },
             {
               label: "Inject Service Form",
@@ -144,12 +156,16 @@ export default defineConfig({
           label: "Update Task",
           items: [
             {
-              label: "Update Task Route",
-              link: "/update-task/update-task-route",
+              label: "Add a new route",
+              link: "/update-task/add-new-route",
             },
             {
-              label: "Update Task Form",
-              link: "/update-task/update-task-form",
+              label: "Retrieve data from the URL",
+              link: "/update-task/retrieve-data-url",
+            },
+            {
+              label: "Form Validation",
+              link: "/update-task/form-validation",
             },
             {
               label: "Submit Update Form",

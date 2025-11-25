@@ -8,24 +8,8 @@ slug: "create-task-reactive-forms"
 import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Understand form binding</strong>
-      <p>Learn how to bind form data to component properties in Angular.</p>
-    </li>
-    <li>
-      <strong>Implement two-way binding</strong>
-      <p>
-        Master binding with FormControl, FormGroup, and FormBuilder for
-        efficient reactive form handling in Angular.
-      </p>
-    </li>
-    <li>
-      <strong>Handle form submission</strong>
-      <p>Learn how to process form data when users submit forms.</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Bind a form to a Reactive Forms in Angular.
 </NotificationCard>
 
 ---
@@ -77,6 +61,7 @@ We'll firstly define the `FormGroup` wrapper. It will be an empty shell so far.
      styleUrl: "./task-form.css",
    })
    export class TaskForm {
+
      form = new FormGroup({});
    }
    ```
@@ -98,7 +83,7 @@ Here an empty string, but some situations will require to display a default real
 
 1. Update the `src/app/task-form/task-form.ts` file:
 
-   ```typescript ins={"Import FormControl": 2-3} ins={"Define the 2 FormControls": 14-16}
+   ```typescript ins={"Import FormControl": 2-3} ins={"Define the 2 FormControls": 13-16}
    import { Component } from "@angular/core";
 
    import { FormGroup, FormControl } from "@angular/forms";
@@ -111,6 +96,7 @@ Here an empty string, but some situations will require to display a default real
    })
    export class TaskForm {
      form = new FormGroup({
+
        title: new FormControl(""),
        description: new FormControl(""),
      });

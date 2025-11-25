@@ -1,0 +1,87 @@
+---
+title: Form Validation
+description: Learn how to validate a form in Angular
+course: angular-20
+slug: "update-task-form-validation"
+---
+
+import { Steps } from "@astrojs/starlight/components";
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objective">
+  Add form validation to the form.
+</NotificationCard>
+
+## Form validation
+
+Form validation is the process of checking user input in a form to make sure it is complete and correct before allowing the form to be submitted. For example, you can require certain fields to be filled in or check that an email address is in the right format. Angular provides built-in tools to help you validate form input and display useful error messages to users
+
+For example: `Validators.required` is a built-in Angular validator used in reactive forms to make a form field mandatory. When applied, the form control is considered invalid if it is empty, helping ensure users fill out required fields before submitting the form. `Validators.minLength(3)` is another built-in Angular validator that checks if the input value has a minimum length of 3 characters. If the input is shorter, the form control is marked as invalid, prompting users to enter a longer value.
+
+In our case we won't handle the error but we will console log the error if the form is invalid in our submit.
+
+<Steps>
+
+1. Update the file `src/app/task-form/task-form.ts`.
+
+   ```typescript ins="[Validators.required]" ins="[Validators.minLength(1)]"
+   import { Component, inject, OnInit } from "@angular/core";
+   import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+   import { TaskService } from "../task-service";
+   import { Router } from "@angular/router";
+
+   import { ActivatedRoute } from "@angular/router";
+
+   @Component({
+     selector: "app-task-form",
+     imports: [ReactiveFormsModule],
+     templateUrl: "./task-form.html",
+     styleUrl: "./task-form.css",
+   })
+   export class TaskForm implements OnInit {
+     private taskService = inject(TaskService);
+     private router = inject(Router);
+
+     private route = inject(ActivatedRoute);
+
+     private id = this.route.snapshot.paramMap.get("id");
+
+     form = new FormGroup({
+       title: new FormControl("", [Validators.required]),
+       description: new FormControl("", [Validators.minLength(1)]),
+     });
+
+     constructor() {
+       if (this.id) {
+         this.form.patchValue(this.taskService.getTask(this.id));
+       }
+     }
+
+     submit() {
+       if (this.form.invalid) {
+         console.log("Your form is invalid. Please check the fields.");
+         console.log("Your Form: ", this.form.value);
+         console.log("Title Errors: ", this.form.controls.title.errors);
+         console.log(
+           "Description Errors: ",
+           this.form.controls.description.errors
+         );
+       }
+       this.taskService.addTask(this.form.value);
+       this.router.navigate(["/"]);
+     }
+   }
+   ```
+
+</Steps>
+
+## Test it
+
+<Steps>
+  1. Click the `Update` button next to a task in the list. 2. The form should be
+  filled with the task to update.
+</Steps>
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you learned how to add form validation to the form.
+</NotificationCard>

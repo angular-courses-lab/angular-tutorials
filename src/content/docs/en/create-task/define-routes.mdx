@@ -1,0 +1,61 @@
+---
+title: Define routes
+description: Define routes in your Angular application
+course: angular-20
+slug: "create-task-define-routes"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objective">
+  Define routes in your Angular application
+</NotificationCard>
+
+## Define routes
+
+To display the desired content based on the URL, you need to add a `path` to each of your `components` in your `routes` array, for example:
+
+```typescript
+{ path: 'add-task', component: TaskForm }
+```
+
+The path is therefore the URL that the user will access. For example, the path `/add-task` means that the user will navigate to the URL `http://localhost:4200/add-task`.
+
+The provided component is the component that will be displayed in the `router-outlet` placeholder when the user accesses this URL.
+
+The route definition resides in the `app.routes.ts` file.
+
+    ```bash ins="app.routes.ts"
+    src
+    └─ app
+        └─ app.routes.ts
+    ```
+
+---
+
+##### Instructions
+
+<Steps>
+
+1. Update the `src/app/app.routes.ts` file.
+
+   ```typescript ins={"Import components for each route": 3-5} ins={"Define the routes": 7-11}
+   // app-route.ts
+   import { Routes } from "@angular/router";
+
+   import { TaskList } from "./task-list/task-list";
+   import { TaskForm } from "./task-form/task-form";
+
+
+   export const routes: Routes = [
+     { path: "", component: TaskList },
+     { path: "add-task", component: TaskForm },
+   ];
+   ```
+
+</Steps>
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you learned how to define routes in your Angular application.
+</NotificationCard>
