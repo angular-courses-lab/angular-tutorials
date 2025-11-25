@@ -1,0 +1,194 @@
+---
+title: Reactive Forms
+description: Learn how to use Reactive Forms in Angular
+course: angular-20
+slug: "create-task-reactive-forms"
+---
+
+import { Steps } from "@astrojs/starlight/components";
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objective">
+  Bind a form to a Reactive Forms in Angular.
+</NotificationCard>
+
+---
+
+Currently, the form input is possible. Now, you need to retrieve the form data to create a new task and add it to the existing list.
+
+## Angular Forms API
+
+Angular provides 2 different APIs for working with forms:
+
+- Template-driven Forms (two-way binding with the `ngModel` directive)
+- Reactive Forms
+
+In this course, you will use the Reactive Forms API to bind the form.
+
+## Reactive Forms
+
+The form structure, its behavior and related validation rules are defined in the component file.
+These rules are then bound to native HTML input tags in the HMTL file using the `formControlName` directive. We will see how to do that in the next steps.
+
+It enables connecting the template to the Form and reactively be aware of any change about its value, its status and the current state of the validation rules.
+
+## FormGroup and FormControl
+
+`FormGroup` and `FormControl` are two classes exposed by the `@angular/forms`package to define and structure your form:
+
+- `FormControl` is used to define the rules of a single input.
+- `FormGroup` is used to wrap multiple `FormControl` to manipulate a set of inputs as a single entity (it acts as a wrapper for a group of controls).
+
+### FormGroup
+
+We'll firstly define the `FormGroup` wrapper. It will be an empty shell so far.
+
+##### Instructions
+
+<Steps>
+
+1. Update the `src/app/task-form/task-form.ts` file:
+
+   ```typescript ins={"Import FormGroup": 2-3}  ins={"Define the FormGroup": 12-13}
+   import { Component } from "@angular/core";
+
+   import { FormGroup } from "@angular/forms";
+
+   @Component({
+     selector: "app-task-form",
+     imports: [],
+     templateUrl: "./task-form.html",
+     styleUrl: "./task-form.css",
+   })
+   export class TaskForm {
+
+     form = new FormGroup({});
+   }
+   ```
+
+</Steps>
+
+### FormControl
+
+The form is meant to include two inputs: the name and the description.
+As `FormControl` is meant to handle a single input, we need to populate the new `FormGroup` with 2 `FormControls`.
+
+To create a `FormControl`, we need to instantiate it the same way we did for the `FormGroup`: `new FormControl()`.
+We also need to pass it a default value as a parameter: `new FormControl()''`.
+Here an empty string, but some situations will require to display a default real value in your HTML.
+
+##### Instructions
+
+<Steps>
+
+1. Update the `src/app/task-form/task-form.ts` file:
+
+   ```typescript ins={"Import FormControl": 2-3} ins={"Define the 2 FormControls": 13-16}
+   import { Component } from "@angular/core";
+
+   import { FormGroup, FormControl } from "@angular/forms";
+
+   @Component({
+     selector: "app-task-form",
+     imports: [],
+     templateUrl: "./task-form.html",
+     styleUrl: "./task-form.css",
+   })
+   export class TaskForm {
+     form = new FormGroup({
+
+       title: new FormControl(""),
+       description: new FormControl(""),
+     });
+   }
+   ```
+
+</Steps>
+
+## Form HTML Binding
+
+The form structure is defined but that's only an unused property in the `task-form.ts` file.
+We need to bind the form to the HTML inputs: once done, it'll allow getting the value of the inputs upon clicking on the submit button.
+
+It comes in multiple steps:
+
+- add a new import, `ReactiveFormsModule` to benefit from directives for the HTML template.
+- use these directives to bind the whole form and each input
+
+##### Instructions
+
+<Steps>
+
+1. Import ReactiveFormsModule the `src/app/task-form/task-form.ts` file:
+
+   ```typescript ins={"Import ReactiveFormsModule": 2-3} ins={"Add the import": 7-8}
+   import { Component } from "@angular/core";
+
+   import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
+
+   @Component({
+     selector: "app-task-form",
+
+     imports: [ReactiveFormsModule],
+     // ...
+   })
+   export class TaskForm {
+     // ...
+   }
+   ```
+
+2. Bind the whole form with the `formGroup` directive in the `src/app/task-form/task-form.html` file:
+
+   ```html ins='[formGroup]="form"'
+   <form [formGroup]="form" class="flex flex-col gap-2 m-auto">
+     <fieldset class="fieldset w-full">
+       <legend class="fieldset-legend">Name</legend>
+       <input type="text" class="input w-full" placeholder="Type here" />
+     </fieldset>
+
+     <fieldset class="fieldset">
+       <legend class="fieldset-legend">Description</legend>
+       <textarea
+         class="textarea w-full h-24"
+         placeholder="Description"
+       ></textarea>
+     </fieldset>
+
+     <button type="submit" class="btn btn-primary">Submit</button>
+   </form>
+   ```
+
+3. Bind the individual `FormControls` by their name with the `formControlName` directives in the `src/app/task-form/task-form.html` file:
+
+   ```html ins='formControlName="title"' ins='formControlName="description"'
+   <form [formGroup]="form" class="flex flex-col gap-2 m-auto">
+     <fieldset class="fieldset w-full">
+       <legend class="fieldset-legend">Name</legend>
+       <input
+         formControlName="title"
+         type="text"
+         class="input w-full"
+         placeholder="Type here"
+       />
+     </fieldset>
+
+     <fieldset class="fieldset">
+       <legend class="fieldset-legend">Description</legend>
+       <textarea
+         formControlName="description"
+         class="textarea w-full h-24"
+         placeholder="Description"
+       ></textarea>
+     </fieldset>
+
+     <button type="submit" class="btn btn-primary">Submit</button>
+   </form>
+   ```
+
+</Steps>
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you learned how to bind a form to a Reactive Forms in
+  Angular. You learned how to define the form on Component side and how to use
+  directives to bind this form on HTML side.
+</NotificationCard>

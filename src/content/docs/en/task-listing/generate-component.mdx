@@ -1,0 +1,156 @@
+---
+title: Generate an Angular Component
+description: Learn how to generate a new component using the Angular CLI
+course: angular-20
+slug: "task-listing-generate-component"
+---
+
+import { Image } from "astro:assets";
+import creationImg from "../../../../../public/first-component_creation.png";
+import { Steps } from "@astrojs/starlight/components";
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objective">
+  Learn how to create a new component using the Angular CLI.
+</NotificationCard>
+
+## Angular CLI
+
+You've already used the CLI to run our application locally with the `ng serve` command in the <a href="/legacy-course/getting-started/#running-the-application" target="_blank">Getting Started</a> section.
+
+Now use it to create a new component as the Angular CLI also provide a dedicated command to generate a new component, `ng generate component`.
+
+### Instructions
+
+<Steps>
+
+1. Run the following command in a terminal to generate a new component called `task-list`
+
+   ```bash
+   ng generate component task-list
+   ```
+
+   or the short version:
+
+   ```bash
+   ng g c task-list
+   ```
+
+2. Look for the generated folder called `task-list` in the `src/app` directory.
+
+   ```diff
+   src
+   └─ app
+   +   └─ task-list
+   +       └─ task-list.ts
+   +       └─ task-list.html
+   +       └─ task-list.css
+   ```
+
+</Steps>
+
+<NotificationCard title="Note" state="info">
+  By default, the Angular CLI will create a folder for the component, so you do
+  not have to create it manually.
+</NotificationCard>
+
+---
+
+## Component Metadata
+
+When opening the `task-list.ts` file, you can see the following code:
+
+```typescript
+// task-list.ts
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-task-list",
+  imports: [],
+  templateUrl: "./task-list.html",
+  styleUrls: ["./task-list.css"],
+})
+export class TaskList {}
+```
+
+---
+
+The **@Component** decorator defines the component's configuration metadata.
+
+<NotificationCard state="info" title="Note">
+  A decorator is a way to do meta-programming. They can modify their target
+  (classes, methods, ...), call other methods when the target is called, or add
+  metadata intended for a framework. This last point corresponds to how we use
+  them in Angular.
+</NotificationCard>
+
+---
+
+The **selector** property defines the component's HTML tag name.
+By using this selector in an HTML Template (view), Angular creates and displays an instance of the component.
+
+```typescript ins='selector: "app-task-list",'
+// task-list.ts
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-task-list",
+  imports: [],
+  templateUrl: "./task-list.html",
+  styleUrls: ["./task-list.css"],
+})
+export class TaskList {}
+```
+
+---
+
+The **templateUrl** property defines the location of the HTML Template (its view) for the component.
+This is the view that will be displayed when the CSS **selector** is used in another HTML Template.
+
+```typescript ins='styleUrls: ["./task-list.css"],'
+// task-list.ts
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-task-list",
+  imports: [],
+  templateUrl: "./task-list.html",
+  styleUrls: ["./task-list.css"],
+})
+export class TaskList {}
+```
+
+---
+
+The **styleUrls** property defines the locations of the component's CSS files.
+These styles will be applied to the component's template. By default styles are scoped to only affect your componet: styling all button tags for example won't affect other components.
+
+```typescript ins='styleUrls: ["./task-list.css"],'
+// task-list.ts
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-task-list",
+  imports: [],
+  templateUrl: "./task-list.html",
+  styleUrls: ["./task-list.css"],
+})
+export class TaskList {}
+```
+
+<NotificationCard title="Note" state="info">
+  Global styles can be defined in the `src/styles.css` file.
+</NotificationCard>
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you learned how to create a new component using the Angular
+  CLI. You also remembered that the component's <strong>view</strong> is its
+  HTML Template and the component's <strong>model</strong> is its TypeScript
+  file.
+</NotificationCard>
+
+<br />
+
+<a href="https://angular.dev/cli/generate/component" target="_blank">
+  Angular CLI Documentation: generating a component
+</a>

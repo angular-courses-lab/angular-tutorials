@@ -1,8 +1,8 @@
 ---
-title: Display List
-description: Learn how to display a list of tasks in Angular
+title: Control Flow
+description: Learn how to use the Control Flow feature in Angular
 course: angular-20
-slug: "task-listing-display-list"
+slug: "task-listing-control-flow"
 ---
 
 import { Image } from "astro:assets";
@@ -10,21 +10,8 @@ import staticImg from "../../../../../public/display-list_static.png";
 import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Create task list component</strong>
-      <p>Build a component to display the list of tasks.</p>
-    </li>
-    <li>
-      <strong>Use Angular directives</strong>
-      <p>Master ngFor and other directives for list rendering.</p>
-    </li>
-    <li>
-      <strong>Style the list</strong>
-      <p>Apply styling to make the task list visually appealing.</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Ierate over a list of items and display them in the HTML template with the @for directive.
 </NotificationCard>
 
 ## HTML Structure
@@ -87,8 +74,10 @@ It's made of 2 parts:
 - the `@for` keyword with a definition of the list to iterate over and some options
 - a block of code to execute for each item in the list
 
-```html ins="// Loop Definition" ins="// Loop Body"
-// Loop Definition @for (task of tasks; track task.id) { // Loop Body
+```html ins="<!-- Loop Definition -->" ins="<!-- Loop Body -->"
+<!-- Loop Definition -->
+@for (task of tasks; track task.id) {
+<!-- Loop Body -->
 <tr>
   <td>{{ task.title }}</td>
   <td>{{ task.createdAt }}</td>
@@ -131,7 +120,7 @@ Like in Javascript, we use `{}` to define the body of the loop.
 @for (task of tasks; track task.id) {
 <tr>
   <td>Follow the course</td>
-  <td>05/24/2024</td>
+  <td>{{ task.createdAt }}</td>
   <td></td>
 </tr>
 }

@@ -1,0 +1,47 @@
+---
+title: Inject HTTP Client
+description: Learn how to inject HTTP Client into your Angular application.
+course: angular-20
+slug: "api-server-inject-http-client"
+---
+
+import { Steps } from "@astrojs/starlight/components";
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objective">
+  Inject HTTP Client into your Angular application.
+</NotificationCard>
+
+The **HttpClient** service is a built-in Angular service that allows you to send HTTP requests to a server.
+As we already did with some services such as **ActivatedRoute** or **Router$$, we could inject it in a component.
+
+But that's a common bad practice to inject services in components!
+We want to keep oyur components as clean as possible, not to focus on the business logic, but on the UI.
+That's why we'll inject the **HttpClient** service in the **TaskService** service, not in a component.
+
+<Steps>
+
+1. Inject the HttpClient service in the `src/app/task-service.ts` file.
+
+   ```typescript ins={"Import the HttpClient service": 2-3} ins={"Inject the HttpClient service": 9-11}
+   import { Injectable, inject } from "@angular/core";
+
+   import { HttpClient } from "@angular/common/http";
+
+   @Injectable({
+     providedIn: "root",
+   })
+   export class TaskService {
+
+     private http = inject(HttpClient);
+   }
+   ```
+
+</Steps>
+
+<NotificationCard state="success" title="What you've learned">
+  <strong>HttpClient</strong> is a built-in Angular service that allows you to
+  send HTTP requests to a server. It's one of the first modules added to a real
+  Angular application to communicate with a server. In the next chapters, we'll
+  use it to communicate with the mock API server to retrieve and update tasks.
+</NotificationCard>

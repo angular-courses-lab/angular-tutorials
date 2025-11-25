@@ -61,3 +61,16 @@ https://tailwindcss.com/docs/adding-custom-styles#using-custom-css
 .site-title {
   font-family: "Geist", sans-serif;
 }
+
+h1#_top {
+  margin-block-start: 0;
+  padding-block-end: 1rem;
+}
+
+:root audio::-webkit-media-controls-panel {
+  @apply bg-teal-50;
+}
+
+:root:not([data-theme="light"]) audio::-webkit-media-controls-panel {
+  @apply dark:bg-teal-950/30;
+}

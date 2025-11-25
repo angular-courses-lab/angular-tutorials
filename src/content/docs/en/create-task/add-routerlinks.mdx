@@ -1,0 +1,77 @@
+---
+title: Add router links
+description: Add links to navigate between routes
+course: angular-20
+slug: "create-task-add-routerlinks"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objective">
+  Add links to navigate between routes
+</NotificationCard>
+
+## Add links to navigate between routes
+
+You need to add links to trigger navigation between different routes.
+You could manually modify the URL in the browser, but users expect to have clickable links to navigate between pages.
+
+The HTML `<a>` tag is used to create links and is associated with the **routerLink** directive to use Angular routing. This directive takes the path of the route to navigate to as a value.
+
+<Steps>
+
+1. Import **RouterLink in the `src/app/app.ts` file.
+
+   ```ts ins={"Add Routerlink import":3-4} ins={"Add Routerlink to the component imports":8-9} ins=", RouterLink"
+   // app.ts
+   import { Component } from "@angular/core";
+
+   import { RouterLink, RouterOutlet } from "@angular/router";
+
+   @Component({
+     selector: "app-root",
+
+     imports: [RouterOutlet, RouterLink],
+     // ...
+   })
+   export class App {
+   }
+   ```
+
+2. Define links in the `src/app/app.html` file.
+
+    ```html  ins={"Add links to navigate between routes": 3-7}
+    <div class="navbar bg-base-100 shadow-sm">
+      <a class="btn btn-ghost text-xl">Task Manager</a>
+
+      <ul class="menu menu-horizontal px-1">
+        <li><a routerLink="/">Task List</a></li>
+        <li><a routerLink="/add-task">Add new task</a></li>
+      </ul>
+    </div>
+    <main class="m-12  max-w-screen-md mx-auto">
+      <router-outlet />
+    </main>
+    ```
+
+3. Click on both links to see the content of `TaskList` and `TaskForm` displayed alternately at the location defined by the `router-outlet`.
+
+</Steps>
+
+<NotificationCard state="info" title="Note">
+  The path of the **TaskFormComponent** is defined as `add-task` in the
+  `app.routes.ts` file. However, in the HTML Template, in the
+  **routerLink** directive, it is specified as `/add-task` (with the `/`).
+
+**routerLink** builds the URL relative to the current path. Adding a slash indicates that the URL should be built from the base URL of the application (here `http://localhost:4200`). Without specifying the slash in the **routerLink** directive, you would create nesting and navigate to `/add-task/add-task`.
+
+> `<a routerLink="/add-task">...</a>` => http://localhost:4200/add-task
+
+> `<a routerLink="add-task">...</a>` => http://localhost:4200/add-task/add-task
+
+</NotificationCard>
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you learned how to add links to navigate between routes using the <code>routerLink</code> directive.
+</NotificationCard>

@@ -8,21 +8,8 @@ slug: "update-task-submit-update-form"
 import { Steps } from '@astrojs/starlight/components';
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Handle form submission</strong>
-      <p>Learn how to process form data when updating tasks.</p>
-    </li>
-    <li>
-      <strong>Update task data</strong>
-      <p>Implement the logic to update task information in the service.</p>
-    </li>
-    <li>
-      <strong>Navigate after update</strong>
-      <p>Learn how to redirect users after successful task updates.</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Handle form submission for task updates
 </NotificationCard>
 
 ## Update the Task with TaskService
@@ -79,7 +66,7 @@ Let's add a new function to update an existing task in the list.
 
 ## Update the TaskFormComponent
 
-The **TaskFormComponent** is currently used to add a new task to the list.
+The **TaskForm** component is currently used to add a new task to the list.
 
 Handle the update action through the form **without creating a new task**.
 To do this, keep the same **submit** function but update it to use the **updateTask** function from the **TaskService**.
@@ -139,16 +126,14 @@ In both cases, return to the task list.
      private taskService = inject(TaskService);
      private router = inject(Router);
      private route = inject(ActivatedRoute);
-     private id: string | null = null;
+     private id = this.route.snapshot.paramMap.get('id');
 
      form = new FormGroup({
        title: new FormControl('', [Validators.required]),
        description: new FormControl('', [Validators.required])
      });
 
-     ngOnInit() {
-       this.id = this.route.snapshot.paramMap.get("id");
-
+     constructor() {
        if (this.id) {
          this.form.patchValue(this.taskService.getTask(this.id));
        }
@@ -193,6 +178,6 @@ In both cases, return to the task list.
 </Steps>
 
 <NotificationCard state="success" title="What you've learned">
-  In this chapter, you learned how to update the **TaskFormComponent** to handle
+  In this chapter, you learned how to update the **TaskForm** component to handle
   both updating and creating tasks.
 </NotificationCard>

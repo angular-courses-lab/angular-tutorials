@@ -8,21 +8,8 @@ slug: "create-task-dependency-injection"
 import { Steps } from '@astrojs/starlight/components';
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Understand dependency injection</strong>
-      <p>Learn the fundamentals of dependency injection in Angular.</p>
-    </li>
-    <li>
-      <strong>Use services</strong>
-      <p>Master how to create and inject services in your components.</p>
-    </li>
-    <li>
-      <strong>Manage dependencies</strong>
-      <p>Learn how to properly manage and organize dependencies.</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Communicate with a service from a component.
 </NotificationCard>
 
 ## Remove the tasks list from TaskListComponent
@@ -39,7 +26,7 @@ You need it to use the service's list instead. The first step is to remove the t
 
 1. Remove the **tasks** variable from the `src/app/task-list.ts` file, and all imports related to it.
 
-   ```typescript del="signal" del="WritableSignal" del="import { Task } from "./models/task.model";" del="import { v4 as uuid } from "uuid";" del={"Remove the tasks list": 12-27}
+   ```typescript del="signal" del="WritableSignal" del="import { Task } from "./models/task.model";" del="import { v4 as uuid } from "uuid";" del={"Remove the tasks list": 14-28}
    // task-list.ts
 
     import { Component, WritableSignal, signal } from "@angular/core";
@@ -93,6 +80,13 @@ Your application compiles again and you can now use the **taskService** variable
 ```ts
 tasks = this.taskService.tasks;
 ```
+
+:::caution
+You learned you have to use `()` to get the value of a Signal.
+We do not want to get its value but the Signal itself.
+Getting the value would get the current value, so if it changes (adding an item), the value would not be updated.
+Getting the Signal itself would allow the component to react to changes in the tasks list of the service.
+:::
 
 1. Update the `src/app/task-list.ts` file.
 

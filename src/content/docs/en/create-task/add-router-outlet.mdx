@@ -1,0 +1,71 @@
+---
+title: Add router outlet
+description: Add a router outlet in the template
+course: angular-20
+slug: "create-task-add-router-outlet"
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import NotificationCard from "../../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objective">
+  Add a router outlet in the template to display the content of the current route
+</NotificationCard>
+
+## Router-outlet directive
+
+The **Router** API provides a directive called `router-outlet`.
+
+<NotificationCard state="info" title="Angular directives">
+  Angular Directives are components without a template.
+  There are meant to bind logic to your templates.
+  In this situation, the router-outlet directive will dynamically display components based on the current URL
+</NotificationCard>
+
+
+Routed content will be displayed. When the user navigates to a different route, the content of the `router-outlet` is replaced with the content of the new route.
+The `router-outlet` directive's only role is to mark the location in the HTML Template.  At this location, the content corresponding to the URL you defined will be displayed.
+
+A directive is a component without a template. Like a component, it can be used in the HTML Template with its selector (like `<router-outlet>`), but it doesn't have a template.
+It's meant to encapsulate a logic that can be used in the HTML Template.
+
+Think of it as salt on food - when you sprinkle it (apply the directive), it enhances the flavor of the dish (changes the element's behavior), but you don't see the salt as a separate ingredient on your plate. It blends in while making everything work better.
+
+<Steps>
+
+1. Update the `src/app/app.html` file to include the `router-outlet` directive:
+
+   ```html ins={"Add the directive via the router-outlet tag to mark the location of the content configured via URL": 5-6}
+   <div class="navbar bg-base-100 shadow-sm">
+     <a class="btn btn-ghost text-xl">Task Manager</a>
+   </div>
+   <main class="m-12">
+
+     <router-outlet />
+   </main>
+   ```
+
+  2. Then add it to `src/app/app.ts` to the `imports` array of the **@Component** decorator of the app.ts file:
+
+     ```ts del={"Remove TaskList imports as it's not needed anymore": 4-5} del="TaskList" ins="RouterOutlet" ins={"add RouterOutlet import": 2-3}
+      import { Component } from '@angular/core';
+
+     import {RouterOutlet} from '@angular/router';
+
+     import {TaskList} from './task-list/task-list';
+
+     @Component({
+         // ...
+         imports: [TaskList, RouterOutlet],
+         })
+           export class App {
+         }
+     ```
+</Steps>
+
+In the above case, the `router-outlet` is placed between the `<main>` tags. This means that you will continue to display the `<header>` on top of all pages. Only the content inside the main tag will be replaced by the content of the route.
+
+
+<NotificationCard state="success" title="What you've learned">
+  In this chapter, you learned how to display the content of the current route by defining the <code>router-outlet</code> directive.
+</NotificationCard>

@@ -5,20 +5,11 @@ course: angular-20
 slug: "task-listing-interpolation"
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Steps } from "@astrojs/starlight/components";
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Understand interpolation</strong>
-      <p>Learn how to display component data in templates.</p>
-    </li>
-    <li>
-      <strong>Use template expressions</strong>
-      <p>Master the syntax for binding data in templates.</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Learn how to display component data in templates.
 </NotificationCard>
 
 <br />
@@ -71,7 +62,7 @@ So using `{{ task.title }}` will display the title of the current task and `{{ t
        </tr>
      </thead>
      <tbody>
-       @for (task of tasks; track task.id) {
+       @for (task of tasks(); track task.id) {
        <tr>
          <td>{{ task.title }}</td>
          <td>{{ task.createdAt }}</td>
@@ -96,9 +87,6 @@ The interpolation expression can take any property defined in the template, such
 
 <br />
 
-- <a
-    href="https://angular.dev/guide/templates/interpolation"
-    target="_blank"
-  >
+- <a href="https://angular.dev/guide/templates/interpolation" target="_blank">
     Official Angular Documentation: interpolation
   </a>

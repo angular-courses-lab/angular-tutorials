@@ -1,28 +1,15 @@
 ---
-title: Angular Service
-description: Learn how to create and use services in Angular
+title: Generate an Angular Service
+description: Learn how to generate an Angular service using the Angular CLI
 course: angular-20
-slug: "create-task-angular-service"
+slug: "create-task-generate-angular-service"
 ---
 
 import { Steps } from '@astrojs/starlight/components';
 import NotificationCard from "../../../../components/ui/NotificationCard";
 
-<NotificationCard state="objective" title="Chapter Objectives">
-  <ul className="list-disc pl-4 space-y-2">
-    <li>
-      <strong>Create Angular services</strong>
-      <p>Learn how to generate and implement services in Angular.</p>
-    </li>
-    <li>
-      <strong>Share data between components</strong>
-      <p>Use services to manage and share data across components.</p>
-    </li>
-    <li>
-      <strong>Implement service methods</strong>
-      <p>Create methods in services to handle business logic.</p>
-    </li>
-  </ul>
+<NotificationCard state="objective" title="Chapter Objective">
+  Create an Angular service to manage the task list.
 </NotificationCard>
 
 ## Current Situation
@@ -74,7 +61,7 @@ The `ng generate` command that you used for components can also be used to gener
 
 2. Open the `task-service.ts` file and add a Signal property to store the task list, and add following imports:
 
-   ```typescript ins="uuid()" ins="WritableSignal" ins="signal" ins={"Import the task interface and the Signals related imports": 3-4} ins={"import uuid (id generator)": 6-7} ins={"Add the tasks variable": 14-28}
+   ```typescript ins={"Import the task interface and the Signals related imports": 3-4} ins={"import uuid (id generator)": 6-7} ins={"Add the tasks variable": 14-28}
    // task-service.ts
    import { Injectable, WritableSignal, signal } from "@angular/core";
 
