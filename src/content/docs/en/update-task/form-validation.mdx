@@ -24,7 +24,7 @@ In our case we won't handle the error but we will console log the error if the f
 
 1. Update the file `src/app/task-form/task-form.ts`.
 
-   ```typescript ins="[Validators.required]" ins="[Validators.minLength(1)]"
+   ```typescript ins="[Validators.required]" ins="[Validators.minLength(3)]"
    import { Component, inject, OnInit } from "@angular/core";
    import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
    import { TaskService } from "../task-service";
@@ -48,7 +48,7 @@ In our case we won't handle the error but we will console log the error if the f
 
      form = new FormGroup({
        title: new FormControl("", [Validators.required]),
-       description: new FormControl("", [Validators.minLength(1)]),
+       description: new FormControl("", [Validators.minLength(3)]),
      });
 
      constructor() {
@@ -66,6 +66,8 @@ In our case we won't handle the error but we will console log the error if the f
            "Description Errors: ",
            this.form.controls.description.errors
          );
+
+         return;
        }
        this.taskService.addTask(this.form.value);
        this.router.navigate(["/"]);

@@ -152,7 +152,7 @@ constructor() {
 
      form = new FormGroup({
        title: new FormControl("", [Validators.required]),
-       description: new FormControl("", [Validators.minLength(1)]),
+       description: new FormControl("", [Validators.minLength(3)]),
      });
 
      constructor() {

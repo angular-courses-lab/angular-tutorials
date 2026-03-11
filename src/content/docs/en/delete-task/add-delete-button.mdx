@@ -33,7 +33,7 @@ A click event is sufficient here because delete is a simple direct action that d
               <td>
                 <a class="btn btn-secondary" [routerLink]="['/update', task.id]">Update</a>
 
-              <button class="btn btn-danger" type="button" (click)="deleteTask(task.id)">Delete</button>
+              <button class="btn btn-error" type="button" (click)="deleteTask(task.id)">Delete</button>
             </td>
             </tr>
           }
