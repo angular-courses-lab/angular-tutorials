@@ -1,0 +1,36 @@
+---
+title: Next Steps
+description: Learn what to do next after completing this course.
+course: angular-20
+slug: "next-steps"
+---
+
+import NotificationCard from "../../../components/ui/NotificationCard";
+
+<NotificationCard state="objective" title="Chapter Objective">
+  Learn what to do next after completing this course.
+</NotificationCard>
+
+## Ideas to Go Further
+
+Build on what you learned in this course by extending the **task manager** (wedding planner) app or trying new concepts:
+
+- **Filters and search** — Add a search box or filter by title or creation date on the task list, using the same data binding and control flow (`@for`, `@if`) you used for listing tasks.
+
+- **Task categories or tags** — Extend the `Task` interface with a category or tags, add a dropdown or chips in the create/update forms (reactive forms), and filter the list by category.
+
+- **Route guards** — The course didn't cover guards. Add a `CanDeactivate` guard so that leaving the add or edit form with unsaved changes asks the user for confirmation.
+
+- **Loading and error states** — When calling the API (getTasks, addTask, updateTask, deleteTask), show a loading spinner and handle errors with user-friendly messages in your templates, using the same `TaskService` and `HttpClient`.
+
+- **Reusable list + empty state** — As you did with **AlertBanner** (inputs and outputs), extract your task list and "No tasks" empty state into a generic reusable component that accepts items and an empty message as inputs and emits edit/delete actions via outputs.
+
+- **Lazy-load routes** — Keep your existing routes but load the add-task or update-task feature on demand with lazy loading so the initial bundle stays smaller.
+
+- **Simple auth flow** — The course didn't cover interceptors. Add a login form and a minimal auth service that stores a token, then use an HTTP interceptor to attach the token to every request.
+
+- **Persistence choice** — Swap **JSON Server** for another backend (e.g. Firebase, Supabase, or a small Node/Express API) while keeping the same `TaskService` interface and your existing components.
+
+- **Testing** — The project was created with `--skip-tests=true`. Add unit tests for `TaskService` (e.g. with `HttpClientTestingModule`) and for key components (form validation, list display, delete button).
+
+- **Styling and accessibility** — Go further with **DaisyUI** (e.g. more components or themes) or try a component library like Angular Material; add basic accessibility (labels, focus, keyboard support) to forms and buttons.
