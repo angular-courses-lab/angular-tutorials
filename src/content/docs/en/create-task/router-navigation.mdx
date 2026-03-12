@@ -36,7 +36,7 @@ This service allows you to retrieve information about the current route and enab
 
 1. Update the file `src/app/task-form.ts`.
 
-   ```typescript ins={"1. Import the Router": 4-5} ins={"2. Inject the Router": 13-14} ins={"3. Use the navigation function provided by the Router": 29-30}
+   ```typescript ins={"1. Import the Router": 4-5} ins={"2. Inject the Router": 13-14} ins={"3. Use the navigation function provided by the Router": 23-24}
    // task-form.ts
    import { Component } from "@angular/core";
    import { TaskService } from "../task-service";
@@ -52,10 +52,10 @@ This service allows you to retrieve information about the current route and enab
 
      private router = inject(Router);
 
-     task = {
-       title: "",
-       description: "",
-     };
+    form = new FormGroup({
+      title: new FormControl(''),
+      description: new FormControl('')
+    });
 
      submit() {
        this.taskService.addTask(this.task);

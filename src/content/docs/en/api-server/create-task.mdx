@@ -80,7 +80,7 @@ Let's subscribe to the observable using the `subscribe` function.
 1.  Update the `src/app/task-form/task-form.ts` file.
 
         ```typescript ins={"Update the form submission function": 43-44} ins="this.taskService.addTask(task).subscribe();"
-        import {Component, inject, OnInit} from '@angular/core';
+        import {Component, inject} from '@angular/core';
         import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
         import {TaskService} from '../task-service';
         import {ActivatedRoute, Router} from '@angular/router';
@@ -95,7 +95,7 @@ Let's subscribe to the observable using the `subscribe` function.
           templateUrl: './task-form.html',
           styleUrls: ['./task-form.css']
         })
-        export class TaskForm implements OnInit {
+        export class TaskForm {
           private taskService = inject(TaskService);
           private router = inject(Router);
           private route = inject(ActivatedRoute);

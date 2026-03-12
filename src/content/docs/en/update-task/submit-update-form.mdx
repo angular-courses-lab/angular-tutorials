@@ -111,7 +111,7 @@ In both cases, return to the task list.
 
    ```typescript
     // task-form.ts
-   import { Component, OnInit, inject } from "@angular/core";
+   import { Component, inject } from "@angular/core";
    import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
    import {TaskService} from '../task-service';
    import {ActivatedRoute, Router} from '@angular/router';
@@ -124,7 +124,7 @@ In both cases, return to the task list.
      templateUrl: "./task-form.html",
      styleUrl: "./task-form.css",
    })
-   export class TaskForm implements OnInit {
+   export class TaskForm {
      private taskService = inject(TaskService);
      private router = inject(Router);
      private route = inject(ActivatedRoute);

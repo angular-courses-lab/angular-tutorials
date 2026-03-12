@@ -129,7 +129,7 @@ constructor() {
 1. Update the file `src/app/task-form/task-form.ts`.
 
    ```typescript ins={"get the id from the URL": 19-20} ins={"Patch the form value": 28-31} ins={"inject ActivatedRoute": 17-18} ins={"import ActivatedRoute": 5-6}
-   import { Component, inject, OnInit } from "@angular/core";
+   import { Component, inject } from "@angular/core";
    import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
    import { TaskService } from "../task-service";
    import { Router } from "@angular/router";
@@ -142,7 +142,7 @@ constructor() {
      templateUrl: "./task-form.html",
      styleUrl: "./task-form.css",
    })
-   export class TaskForm implements OnInit {
+   export class TaskForm {
      private taskService = inject(TaskService);
      private router = inject(Router);
 

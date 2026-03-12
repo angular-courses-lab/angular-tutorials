@@ -25,7 +25,7 @@ In our case we won't handle the error but we will console log the error if the f
 1. Update the file `src/app/task-form/task-form.ts`.
 
    ```typescript ins="[Validators.required]" ins="[Validators.minLength(3)]"
-   import { Component, inject, OnInit } from "@angular/core";
+   import { Component, inject } from "@angular/core";
    import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
    import { TaskService } from "../task-service";
    import { Router } from "@angular/router";
@@ -38,7 +38,7 @@ In our case we won't handle the error but we will console log the error if the f
      templateUrl: "./task-form.html",
      styleUrl: "./task-form.css",
    })
-   export class TaskForm implements OnInit {
+   export class TaskForm {
      private taskService = inject(TaskService);
      private router = inject(Router);
 
