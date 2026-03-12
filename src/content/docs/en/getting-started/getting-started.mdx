@@ -96,35 +96,17 @@ Hot reloading is a feature that allows you to see the changes you make to your c
        └─ app.html
    ```
 
-2. Locate the placeholder (which is wrapped in HTML comment tags) in the `app.html` file and replace the template content with following:
+2. Open the `app.html` file and replace the whole content with following:
 
    ```html ins="app.html"
    // app.html
    <h1>Welcome to {{title()}}!</h1>
    ```
 
-3. In the file `app.ts`, locate the `imports` array and remove the `RouterOutlet` import:
-
-   ```diff lang="ts"
-   // app.ts
-   - import { RouterOutlet } from '@angular/router';
-   ```
-
-   ```ts del="RouterOutlet"
-   // app.ts
-   @Component({
-     // ...
-     imports: [RouterOutlet],
-   })
-   export class App {
-     // ...
-   }
-   ```
-
 4. Return to your browser to see the following page:
 
    ```
-   Task Manager
+   Welcome to Angular introduction course
    ```
 
 </Steps>
